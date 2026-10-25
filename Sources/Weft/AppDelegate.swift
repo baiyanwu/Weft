@@ -92,7 +92,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSPo
         if popover.isShown { popover.performClose(nil); return }
         guard !popoverClosing else { return }
         guard let button = statusItem.button else { return }
-        popover.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        // Resolve SwiftUI's size before AppKit chooses a position on the screen.
+        if let contentView = popover.contentViewController?.view {
+            contentView.layoutSubtreeIfNeeded()
+            popover.contentSize = contentView.fittingSize
+        }
+        let bottomEdge: NSRectEdge = button.isFlipped ? .maxY : .minY
+        popover.show(relativeTo: button.bounds, of: button, preferredEdge: bottomEdge)
         popover.contentViewController?.view.window?.becomeKey()
     }
     @objc private func toggleControl() {
