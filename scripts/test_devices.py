@@ -18,7 +18,7 @@ class Client:
     def __init__(self, serial, dex=None):
         self.serial, self.epoch, self.sequence = serial, 0, 0
         self.events, self.lock, self.done = queue.Queue(), threading.Lock(), threading.Event()
-        dex = dex or ROOT / 'outputs/DerivedData/Build/Products/Debug/weft.app/Contents/Resources/weft-agent.dex'
+        dex = dex or ROOT / 'local/outputs/DerivedData/Build/Products/Debug/weft.app/Contents/Resources/weft-agent.dex'
         subprocess.run([ADB, '-s', serial, 'push', str(dex), '/data/local/tmp/weft-agent-v2.dex'], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.process = subprocess.Popen([ADB, '-s', serial, 'shell', '-T', 'CLASSPATH=/data/local/tmp/weft-agent-v2.dex',
             'app_process', '/', 'io.baiyanwu.weft.BridgeAgent'], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
@@ -108,7 +108,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--serial', action='append', required=True)
     parser.add_argument('--dex', type=pathlib.Path, help='Test a freshly built agent before packaging the Mac app.')
-    parser.add_argument('--output', default=str(ROOT / 'outputs/device-multi-results.json'))
+    parser.add_argument('--output', default=str(ROOT / 'local/outputs/device-multi-results.json'))
     args = parser.parse_args()
     if len(set(args.serial)) != len(args.serial): parser.error('Serials must be distinct')
     running = subprocess.check_output(['/bin/ps', '-axo', 'command='], text=True)

@@ -14,7 +14,7 @@ TEAM="${DEVELOPMENT_TEAM:-$(printf '%s\n' "$IDENTITY" | sed -n 's/.*(\([A-Z0-9]\
 [[ -n "$TEAM" ]] || { echo 'Set DEVELOPMENT_TEAM to your Apple Developer Team ID.' >&2; exit 1; }
 VERSION="$(awk '/^MARKETING_VERSION[[:space:]]*=/ {print $3; exit}' "$ROOT/Config/Weft.xcconfig")"
 BUILD="$(awk '/^CURRENT_PROJECT_VERSION[[:space:]]*=/ {print $3; exit}' "$ROOT/Config/Weft.xcconfig")"
-OUTPUT="$ROOT/outputs/releases/$VERSION-$BUILD"
+OUTPUT="$ROOT/local/outputs/releases/$VERSION-$BUILD"
 [[ ! -e "$OUTPUT" ]] || { echo "Output already exists: $OUTPUT" >&2; exit 1; }
 # Validate the local credentials before compiling; never export them.
 xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" --output-format json >/dev/null
@@ -23,7 +23,7 @@ OPTIONS="$OUTPUT/ExportOptions.plist"
 cp "$ROOT/Config/ExportOptions.plist" "$OPTIONS"
 plutil -replace teamID -string "$TEAM" "$OPTIONS"
 xcodebuild -project "$ROOT/Weft.xcodeproj" -scheme Weft -configuration Release \
-  -destination 'generic/platform=macOS' -derivedDataPath "$ROOT/outputs/DerivedData" \
+  -destination 'generic/platform=macOS' -derivedDataPath "$ROOT/local/outputs/DerivedData" \
   -archivePath "$OUTPUT/weft.xcarchive" DEVELOPMENT_TEAM="$TEAM" \
   CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY="$IDENTITY" archive
 xcodebuild -exportArchive -archivePath "$OUTPUT/weft.xcarchive" \

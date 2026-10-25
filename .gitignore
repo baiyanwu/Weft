@@ -1,10 +1,9 @@
-outputs/
 __pycache__/
 *.py[cod]
 .DS_Store
 
-# 本地开发记录
-/VERIFICATION.md
+# 本地资料与个人配置
+/local/
 
 # 本地凭据与签名证书
 .env
@@ -14,4 +13,3 @@ __pycache__/
 
 # Xcode 个人设置
 xcuserdata/
-/Config/Signing.local.xcconfig
