@@ -1,60 +1,107 @@
 # weft
 
-Share one mouse between your Mac and multiple Android devices.
-
-一台 Mac 与多台 Android 设备共享鼠标。通过屏幕边缘、菜单栏或快捷键切换，各设备可以同时保持连接，同一时刻控制一台。
+[中文](#中文) | [English](#english)
 
 ![weft logo](Assets/logo.png)
 
-## 功能与要求
+## 中文
 
-- Mac ↔ Android 双向自动跨屏，按屏幕尺寸与排列保持坐标连续。
-- 每台设备独立设置位置、速度、自动连接和自动跨屏。
-- 共享鼠标移动、五个按键和滚轮；不共享键盘、音视频或剪贴板。
-- USB / 无线 ADB，不需要 root 或安装 Android APK。
-- macOS 13 或更新版本，支持构建 Apple Silicon / Intel 通用包。
-- 当前实机验证集中于 Android 16；其他版本和厂商需要单独验证。
+一台 Mac 与多台 Android 设备共享鼠标。通过屏幕边缘、菜单栏或快捷键切换，设备可同时连接，同一时刻控制一台。
 
-应用内置 ADB，无需额外安装 Platform Tools。默认启动时自动扫描本机已安装的 ADB，未找到可用版本时使用内置版本；在“通用设置 → ADB 连接工具”中可指定文件、重新扫描或恢复自动查找。指定路径不可用时会提示，不自动切换。Android 上仍需授权调试；首次运行，在“系统设置 → 隐私与安全性 → 辅助功能”中允许 weft。紧急返回 Mac：左侧 `Option` 或 `Esc`。
+### 功能
 
-## 使用 Xcode
+- Mac ↔ Android 双向跨屏，拖动排列设备位置。
+- 每台设备独立设置鼠标速度、自动连接和自动跨屏。
+- 支持鼠标移动、五个按键和滚轮。
+- USB / Wi-Fi 连接，内置 ADB，无需 root 或安装 Android APK。
 
-1. 安装 Xcode、JDK 17+、Android SDK Platform 36 和 Build Tools 36.0.0。
-2. 双击 **`Weft.xcodeproj`**，选择 **Weft** scheme 和 **My Mac**。
-3. `Command + B` 构建，`Command + R` 运行，`Product → Archive` 归档。
+### 使用
 
-macOS 应用、图标、资源、版本和签名由 Xcode 管理，不需要 Python 或 XcodeGen。Android 控制程序由工程中的 `Build Android agent` 步骤自动编译并嵌入应用；生成文件保存在 Xcode 的 DerivedData 中。
+可从 GitHub Actions 的 **Artifacts → weft-macos-universal-UNNOTARIZED** 下载测试包，或按下文从源码构建。Actions 测试包未经过 Apple 公证。
 
-Android SDK 默认位于 `~/Library/Android/sdk`。自定义位置可通过 `ANDROID_SDK_ROOT` 或 `ANDROID_HOME` 指定。JDK 使用 `JAVA_HOME`，未指定时通过 macOS `java_home` 查找。
+1. 打开 `weft.app`，在 **系统设置 → 隐私与安全性 → 辅助功能** 中授权。
+2. Android 开启 USB 调试并允许这台 Mac，在 **添加设备 → USB 连接** 中添加设备。
+3. 在 **设备与布局** 中拖动排列设备，开启该设备的自动跨屏。绿色接壤区间是鼠标出入口，向外移动即可切换；按住鼠标拖拽时不会自动跨屏。
 
-`Assets/adb` 是官方 macOS 通用 ADB 37.0.1；构建时复制至应用的 `Contents/Helpers` 并随应用签名。完整第三方声明和来源记录为 `Assets/ADB-NOTICE.txt` 与 `Assets/ADB-SOURCE.txt`。内置 ADB 只消除用户运行时的安装依赖，从源码构建 Android 控制程序仍需要上述 SDK 和 JDK。
+无线连接：开启 Android 的无线调试，在添加设备页填写连接地址、配对地址和配对码。配对地址与连接地址的端口通常不同；已配对设备只需连接地址。
 
-Debug 默认使用 ad-hoc 签名，便于从源码构建；Release 使用 Developer ID Application。个人签名设置可放入不提交的 `Config/Signing.local.xcconfig`，内容示例：
+ADB 默认优先使用本机已安装版本，未找到时使用内置版本。需要指定路径时，前往 **通用设置 → ADB 连接工具**。
 
-```xcconfig
-DEVELOPMENT_TEAM = YOUR_TEAM_ID
-CODE_SIGN_IDENTITY[config=Release] = Developer ID Application: Your Name (YOUR_TEAM_ID)
-```
+| 操作 | 快捷键 |
+| --- | --- |
+| 切换 Mac / 上次设备 | `Control + Option + M` |
+| 立即返回 Mac | 左侧 `Option` 或 `Esc` |
 
-## 命令行构建
+关闭设置窗口后，weft 继续在菜单栏运行。连接异常可在 **帮助与诊断** 中查看日志或导出报告。
 
-```sh
-xcodebuild -project Weft.xcodeproj -scheme Weft -configuration Debug \
-  -destination 'platform=macOS,arch=arm64' \
-  -derivedDataPath outputs/DerivedData build
-```
+### 兼容性
 
-上例适用于 Apple Silicon；Intel Mac 将 `arch=arm64` 替换为 `arch=x86_64`。应用位于 `outputs/DerivedData/Build/Products/Debug/weft.app`。
+- macOS 13+，支持构建 Apple Silicon / Intel 通用包；Intel 实机尚未验证。
+- 当前实测 Android 16 的 OnePlus OPD2413 和 Seeker；其他系统与厂商、无线稳定性尚未充分验证。
+- 仅共享鼠标，不共享键盘、音视频或剪贴板。Android 设备之间需经 Mac 切换。
+- 使用非公开系统接口，系统升级可能影响兼容性。
 
-在 Xcode 中使用 `Command + U` 运行测试，或使用 `xcodebuild ... test`。普通 Build 和 Archive 不执行测试，也不操作实体设备。Android 主机检查可通过构建设置 `WEFT_ANDROID_TESTS=YES` 主动启用。
+### 从源码构建
 
-## GitHub 产物与正式发行
+需要 Xcode、JDK 17+、Android SDK Platform 36 和 Build Tools 36.0.0。
 
-GitHub Actions 使用同一 Xcode 工程，运行主机检查并构建通用测试 ZIP。下载位置为 Actions 运行页面的 **Artifacts → weft-macos-universal-UNNOTARIZED**。测试包未经过 Apple 公证，正式发行使用本机 Developer ID 签名、公证后的 DMG。
+打开 `Weft.xcodeproj`，选择 **Weft → My Mac**，`Command + R` 构建运行，`Command + U` 运行测试。Android 控制程序会自动编译并嵌入应用。
 
-- [使用说明与快捷键](docs/USAGE.zh-CN.md)
-- [签名、公证和发布流程](docs/RELEASING.md)
-- [验证范围与限制](docs/VERIFICATION.md)
-- [MIT 许可证](LICENSE)
+SDK 默认路径为 `~/Library/Android/sdk`，可通过 `ANDROID_SDK_ROOT` 或 `ANDROID_HOME` 覆盖；JDK 可通过 `JAVA_HOME` 指定。
 
-`Sources/WeftCore` 是坐标与布局逻辑，`Sources/Weft` 是 macOS 应用，`Android/src` 是 Android 控制程序。`Android/stubs` 仅用于编译，不嵌入控制程序。Android 和 macOS 控制包含非公开系统接口，系统升级与厂商差异可能影响兼容性。
+Debug 使用 ad-hoc 签名。本机签名配置放在 `local/Signing.xcconfig`，版本配置见 [Config/Weft.xcconfig](Config/Weft.xcconfig)。正式打包使用 [scripts/release.sh](scripts/release.sh)，需要 Developer ID 证书和 `NOTARY_PROFILE` 指定的公证凭据配置。
+
+### 许可证
+
+[MIT](LICENSE)。内置 ADB 的第三方声明与来源见 [ADB-NOTICE.txt](Assets/ADB-NOTICE.txt) 和 [ADB-SOURCE.txt](Assets/ADB-SOURCE.txt)。
+
+## English
+
+Share one mouse between your Mac and multiple Android devices. Switch at screen edges, from the menu bar, or with a shortcut. Multiple devices can stay connected; one is controlled at a time.
+
+### Features
+
+- Switch in both directions between Mac and Android; drag devices to arrange their positions.
+- Set pointer speed, automatic connection, and edge switching for each device.
+- Supports pointer movement, five mouse buttons, and scrolling.
+- USB / Wi-Fi connections with bundled ADB. No root or Android APK required.
+
+### Usage
+
+Download a test build from GitHub Actions under **Artifacts → weft-macos-universal-UNNOTARIZED**, or build from source below. Actions builds are not notarized by Apple.
+
+1. Open `weft.app` and grant access in **System Settings → Privacy & Security → Accessibility**.
+2. Enable USB debugging on Android, authorize your Mac, and add the device under **添加设备 → USB 连接** (Add Device → USB Connection).
+3. Arrange devices under **设备与布局** (Devices & Layout) and enable edge switching for the device. Move the pointer outward through a green shared edge to switch. Automatic switching does not trigger while dragging.
+
+For Wi-Fi, enable Android's wireless debugging and enter the connection address, pairing address, and pairing code on the Add Device page. The pairing and connection ports usually differ; paired devices only need the connection address.
+
+weft prefers an existing local ADB installation and falls back to the bundled version. To choose a custom path, open **通用设置 → ADB 连接工具** (General Settings → ADB).
+
+| Action | Shortcut |
+| --- | --- |
+| Switch between Mac and the last device | `Control + Option + M` |
+| Return to Mac immediately | Left `Option` or `Esc` |
+
+weft stays in the menu bar after its settings window is closed. View logs or export a report under **帮助与诊断** (Help & Diagnostics) if a connection fails.
+
+### Compatibility
+
+- macOS 13+. Universal Apple Silicon / Intel builds are supported; Intel hardware has not been tested.
+- Tested on OnePlus OPD2413 and Seeker running Android 16. Other Android versions, vendors, and wireless reliability have not been fully tested.
+- Mouse sharing only; keyboard, audio, video, and clipboard sharing are not supported. Switching between Android devices goes through the Mac.
+- Uses private system APIs; OS updates may affect compatibility.
+
+### Build from source
+
+Requires Xcode, JDK 17+, Android SDK Platform 36, and Build Tools 36.0.0.
+
+Open `Weft.xcodeproj`, select the **Weft** scheme and **My Mac**, then press `Command + R` to build and run or `Command + U` to run tests. The Android agent is built and embedded automatically.
+
+The SDK defaults to `~/Library/Android/sdk`; override it with `ANDROID_SDK_ROOT` or `ANDROID_HOME`. Set `JAVA_HOME` to choose a JDK.
+
+Debug builds use ad-hoc signing. Put local signing settings in `local/Signing.xcconfig`; version settings are in [Config/Weft.xcconfig](Config/Weft.xcconfig). For release packaging, use [scripts/release.sh](scripts/release.sh) with a Developer ID certificate and a notarization credentials profile specified by `NOTARY_PROFILE`.
+
+### License
+
+[MIT](LICENSE). Bundled ADB notices and provenance are in [ADB-NOTICE.txt](Assets/ADB-NOTICE.txt) and [ADB-SOURCE.txt](Assets/ADB-SOURCE.txt).
