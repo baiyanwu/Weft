@@ -200,7 +200,7 @@
 		060B4C114154306D828EDB34 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				65602153A67DF376E5207A06 /* weft */,
+				65602153A67DF376E5207A06 /* Weft */,
 				4C29D92BED9016178B456507 /* WeftCore */,
 			);
 			path = Sources;
@@ -295,7 +295,7 @@
 			path = WeftTests;
 			sourceTree = "<group>";
 		};
-		65602153A67DF376E5207A06 /* weft */ = {
+		65602153A67DF376E5207A06 /* Weft */ = {
 			isa = PBXGroup;
 			children = (
 				66C373F4BBB19C1158886139 /* AgentConnection.swift */,
@@ -308,7 +308,7 @@
 				2438D5C122DEF31ED7D3C983 /* Stores */,
 				D0650E2833254268F76AA1B9 /* Views */,
 			);
-			path = weft;
+			path = Weft;
 			sourceTree = "<group>";
 		};
 		8DE5624116B3EA97EA8EC488 /* Products */ = {
