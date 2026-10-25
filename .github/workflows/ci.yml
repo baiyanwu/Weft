@@ -1,0 +1,91 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main, dev]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    name: Xcode universal macOS build
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Validate release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          version="$(awk '/^MARKETING_VERSION[[:space:]]*=/ {print $3; exit}' Config/Weft.xcconfig)"
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ && "$RELEASE_TAG" == "v$version" ]]
+          [[ "$(git cat-file -t "$RELEASE_TAG")" == tag ]]
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main
+
+      - name: Set up JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3
+
+      - name: Install Android build dependencies
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+
+      - name: Run Swift and Android host-only tests
+        run: |
+          xcodebuild -project Weft.xcodeproj -scheme Weft -configuration Debug \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath "$RUNNER_TEMP/WeftDerivedData" \
+            CODE_SIGNING_ALLOWED=NO WEFT_ANDROID_TESTS=YES test
+
+      - name: Build universal Release app
+        run: |
+          xcodebuild -project Weft.xcodeproj -scheme Weft -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -derivedDataPath "$RUNNER_TEMP/WeftDerivedData" \
+            ARCHS='arm64 x86_64' ONLY_ACTIVE_ARCH=NO CODE_SIGNING_ALLOWED=NO build
+
+      - name: Package unnotarized test archive
+        run: |
+          set -euo pipefail
+          app="$RUNNER_TEMP/WeftDerivedData/Build/Products/Release/weft.app"
+          version="$(awk '/^MARKETING_VERSION[[:space:]]*=/ {print $3; exit}' Config/Weft.xcconfig)"
+          mkdir -p outputs/ci
+          archive="weft-$version-universal-UNNOTARIZED.zip"
+          codesign --force --sign - "$app"
+          codesign --verify --deep --strict "$app"
+          archs="$(lipo -archs "$app/Contents/MacOS/weft")"
+          [[ " $archs " == *" arm64 "* && " $archs " == *" x86_64 "* ]]
+          ditto -c -k --sequesterRsrc --keepParent "$app" "outputs/ci/$archive"
+          (cd outputs/ci && shasum -a 256 "$archive" > "$archive.sha256")
+          printf 'Ad-hoc signed CI test build. No Developer ID signature or Apple notarization.\n' > outputs/ci/UNNOTARIZED.txt
+
+      - name: Upload test package
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: weft-macos-universal-UNNOTARIZED
+          path: |
+            outputs/ci/weft-*-universal-UNNOTARIZED.zip
+            outputs/ci/weft-*-universal-UNNOTARIZED.zip.sha256
+            outputs/ci/UNNOTARIZED.txt
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: false

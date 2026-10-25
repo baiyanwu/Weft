@@ -1,0 +1,1084 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02243202B1905EDABE17C63B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158FBC350E5DD7E177A9E39B /* SettingsView.swift */; };
+		03F36AAFA80B7AFAA73DB614 /* AgentConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C373F4BBB19C1158886139 /* AgentConnection.swift */; };
+		12467948ABA7EB5F3F25480B /* DeviceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82D374ABF307FBFEF671921 /* DeviceState.swift */; };
+		139D87777803DC930EDE76A0 /* WirelessAddressInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD80CB322FA6342C7FE568B /* WirelessAddressInput.swift */; };
+		15CE87579FC5A1AA278DBF46 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0261A3558523110462AB6297 /* logo.png */; };
+		1B3A0408D8EC924C705AAA55 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AEC4D64C689790ADB1F017 /* main.swift */; };
+		1B664B0FC91E24C16E651731 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DC9E881E606035E944834003 /* LICENSE */; };
+		1E115D9C9D0D798556F44213 /* DeviceRemovalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2151A97162926AFB872453 /* DeviceRemovalTests.swift */; };
+		1F025818F6E076B1854A2FAB /* ArrangementLabelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32795A3A985FE0D9605591F /* ArrangementLabelLayout.swift */; };
+		21E47D452171090720CD394B /* libWeftCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330F802994AC075CC29EE3D /* libWeftCore.a */; };
+		22563178CCA43AE10C9A020D /* ScreenArrangement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A2AF5EB2DA4696BDA9E252 /* ScreenArrangement.swift */; };
+		258C3DC942816AE6F25BF905 /* PointerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39C3E66B2B969AFF48939B2 /* PointerPath.swift */; };
+		267F31F6BA16600C7B7BC57D /* DeviceStore+Arrangement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E351435F6922CFB9CF7DD8 /* DeviceStore+Arrangement.swift */; };
+		2D3078D4D4CE1F63F11C4EFD /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B45D37753AC47AB3DB7CE0B /* Components.swift */; };
+		462A4432035D3A1C4F41C36F /* DeviceStore+Connections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127302311C042A1BFEC5C99D /* DeviceStore+Connections.swift */; };
+		4802750E26AC562B7D7AA29D /* MacCursorCaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47E891DDAAA9224B9B2B70 /* MacCursorCaptureTests.swift */; };
+		4A015F6542CF4393D4A180A8 /* NumericSegmentField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550C70C5423E0470C3ADE036 /* NumericSegmentField.swift */; };
+		4AA2D6EAC4C40E3F859CF133 /* DeviceProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAA119A721EBE87D9B3353F2 /* DeviceProfile.swift */; };
+		4C4FA4E047F078FC7BD5CF80 /* MenuPanelBackdrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A708B1FABE27DFC5E9CBE1 /* MenuPanelBackdrop.swift */; };
+		593C4FDF08DAD663CA6A5DD5 /* GeometryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690AEE97F6A1E2371C14FCAE /* GeometryTests.swift */; };
+		5955EB38F8BFA3E6A36B0010 /* DeviceDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A4DB6F58CF799B36FD7B6 /* DeviceDiscovery.swift */; };
+		5CBC8A94D27F483F5A84912B /* ConnectionRetryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E600B1A8E2F5441405ABF /* ConnectionRetryTests.swift */; };
+		690545DE3FA09571532B0553 /* DeviceLayoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B11EBCDF0C0FA8765F9D4A9 /* DeviceLayoutTests.swift */; };
+		715C0157A14B9417AD841FED /* DirectionSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E51F363930F5EF2542EABC /* DirectionSelectionView.swift */; };
+		71D040A1BBBB3F57819C7803 /* AddDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745C81F74D7E05172BB64474 /* AddDeviceView.swift */; };
+		7406A1649B8E14FA51638BA6 /* WeftCheckboxStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D51213AAE46673D8D106BB /* WeftCheckboxStyle.swift */; };
+		78E55C8342CC42A6F4E97014 /* MouseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63E9F2EE07F1E35584D5E5E /* MouseController.swift */; };
+		7B60F6541C0D674A21BC3F7A /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6CB54CCD3FE3D219FC6BFF /* HelpView.swift */; };
+		7CDD07401E86D34ED18D3B11 /* MenuPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7DC1737674E0FDDB07C3E3 /* MenuPanelView.swift */; };
+		8372431858B0873ABB7FD799 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC87A949C7F6D64CB91F7E7 /* GeneralSettingsView.swift */; };
+		8930DA6919C799A38B007293 /* PointerTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4952DBFCF7DA0E114E02A28B /* PointerTransportTests.swift */; };
+		8DA6675CB2B7BF7EB3E2BBCE /* PointerPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60E83D47D7993A9063267E3 /* PointerPathTests.swift */; };
+		9D468C8C3593C75FAAD3FC90 /* ConnectionRetryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4F158B07364E88DB7903F4 /* ConnectionRetryState.swift */; };
+		9F5825F9B3FEBB4793FED981 /* ScreenArrangementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C15848EE8194B7FDE0603FB /* ScreenArrangementTests.swift */; };
+		A4C2906F41DAB510835FB81C /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2287E00FBC4262846BBB6EA8 /* SidebarView.swift */; };
+		AA2C933229CE89F22B5D5C11 /* ArrangementScreenTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF69B23E232A9DC01C4FE6BF /* ArrangementScreenTile.swift */; };
+		AFC2337375505130B09F1D25 /* WeftTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04AD1CC07C4605360521A3 /* WeftTextField.swift */; };
+		B0D5506D6559FDCA6319A49D /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBDD00384055895267C5FAA /* Geometry.swift */; };
+		B0E1BEA0EC16AFFAF9052733 /* DeviceStore+Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA73C294B1F8DBCCF6309F1D /* DeviceStore+Support.swift */; };
+		B6C3CC81673FDB965DDA1469 /* MacCursorCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D7678CD86231D116E3B4 /* MacCursorCapture.swift */; };
+		CC9B5CF81060966F41721A95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9912438E2AB248B3CAA690BF /* AppDelegate.swift */; };
+		CDABD70380F5F10ABBA95F7F /* SettingsComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9783056976F027F1BF58D234 /* SettingsComponents.swift */; };
+		CFAA65453DC971EA5FBF0727 /* libWeftCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330F802994AC075CC29EE3D /* libWeftCore.a */; };
+		D114D7F740E3C5759CCE160C /* LayoutCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CD462DB9375FBCBEF2C99E /* LayoutCanvasView.swift */; };
+		D4183E86E542BA3841BADEB9 /* WirelessAddressField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5D0D092E056B7D326F5BA7 /* WirelessAddressField.swift */; };
+		E6EEBA7AE8749C6079130EB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A673EA668400B3A0F41F88C /* Assets.xcassets */; };
+		E7C8F6795DE69AE0A5CB07E7 /* DeviceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF3ED38A8C4A168579EC397 /* DeviceStore.swift */; };
+		E9F1F75950E0B5F6DF2847D0 /* ScreenSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1875AE11485D1CD8B9480C03 /* ScreenSelectionView.swift */; };
+		EF5104EC431D8EA512A5DBCE /* PairingCodeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8056DF64A48EFAF65907A99D /* PairingCodeField.swift */; };
+		F1B2B98B7EBEEAC750EB3B86 /* libWeftCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6330F802994AC075CC29EE3D /* libWeftCore.a */; };
+		F5439C201732D172691EF0D4 /* ADB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368A3987D8DFD785827C9E65 /* ADB.swift */; };
+		F792A043E89421306F9A4664 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9EE3507332DD5093DBE6 /* DeviceDetailView.swift */; };
+		FD1288C3541ECC46FFAFDC2D /* UnifiedArrangementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D55DF71A6BD64B3B0C7B62 /* UnifiedArrangementTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A62EA968694A7440A3DE904 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A52705DB524614DFF2D46DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BADE34FB0FC6DA5A0BADD87;
+			remoteInfo = WeftCore;
+		};
+		59DB4867ECAE0A103A3DBDFC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A52705DB524614DFF2D46DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BADE34FB0FC6DA5A0BADD87;
+			remoteInfo = WeftCore;
+		};
+		F0E8667E670A46AC0868CC32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A52705DB524614DFF2D46DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16AEC07A4A6F4A0377522DB8;
+			remoteInfo = Weft;
+		};
+		F2A5260A21BC28C711D79303 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A52705DB524614DFF2D46DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4BADE34FB0FC6DA5A0BADD87;
+			remoteInfo = WeftCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00947D5BB19C37A5D8A74757 /* WeftCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeftCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0261A3558523110462AB6297 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		08D55DF71A6BD64B3B0C7B62 /* UnifiedArrangementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedArrangementTests.swift; sourceTree = "<group>"; };
+		127302311C042A1BFEC5C99D /* DeviceStore+Connections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceStore+Connections.swift"; sourceTree = "<group>"; };
+		158FBC350E5DD7E177A9E39B /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1764AAAD473F2A3378C282F1 /* build-agent.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-agent.sh"; sourceTree = "<group>"; };
+		1875AE11485D1CD8B9480C03 /* ScreenSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSelectionView.swift; sourceTree = "<group>"; };
+		1D04AD1CC07C4605360521A3 /* WeftTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeftTextField.swift; sourceTree = "<group>"; };
+		2287E00FBC4262846BBB6EA8 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		22D51213AAE46673D8D106BB /* WeftCheckboxStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeftCheckboxStyle.swift; sourceTree = "<group>"; };
+		2C15848EE8194B7FDE0603FB /* ScreenArrangementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenArrangementTests.swift; sourceTree = "<group>"; };
+		2EBDD00384055895267C5FAA /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		368A3987D8DFD785827C9E65 /* ADB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADB.swift; sourceTree = "<group>"; };
+		3C4256F324D64677DE90D886 /* release.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = release.sh; sourceTree = "<group>"; };
+		3E2151A97162926AFB872453 /* DeviceRemovalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRemovalTests.swift; sourceTree = "<group>"; };
+		4051E955DB0DF3699D140218 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5C46C0D61E32AC22ADFFE7BC /* ExportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ExportOptions.plist; sourceTree = "<group>"; };
+		4952DBFCF7DA0E114E02A28B /* PointerTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerTransportTests.swift; sourceTree = "<group>"; };
+		4B11EBCDF0C0FA8765F9D4A9 /* DeviceLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLayoutTests.swift; sourceTree = "<group>"; };
+		5495EE3A1AD1B3EB67214DA4 /* AbsoluteMouseReport.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = AbsoluteMouseReport.java; sourceTree = "<group>"; };
+		54E8C0F9AAE9F9521907C60C /* ScreenMetrics.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ScreenMetrics.java; sourceTree = "<group>"; };
+		550C70C5423E0470C3ADE036 /* NumericSegmentField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericSegmentField.swift; sourceTree = "<group>"; };
+		559DD16BE4D06103C1CECF89 /* ReusableMouse.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ReusableMouse.java; sourceTree = "<group>"; };
+		57161727A4FC673F10857CF5 /* BridgeAgent.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = BridgeAgent.java; sourceTree = "<group>"; };
+		57A2AF5EB2DA4696BDA9E252 /* ScreenArrangement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenArrangement.swift; sourceTree = "<group>"; };
+		57F66729126715BFF2D20BD8 /* Weft.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Weft.xcconfig; sourceTree = "<group>"; };
+		5F145835D6565C5F0A69CB1C /* CursorParser.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = CursorParser.java; sourceTree = "<group>"; };
+		6330F802994AC075CC29EE3D /* libWeftCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWeftCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		64A708B1FABE27DFC5E9CBE1 /* MenuPanelBackdrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPanelBackdrop.swift; sourceTree = "<group>"; };
+		66C373F4BBB19C1158886139 /* AgentConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentConnection.swift; sourceTree = "<group>"; };
+		690AEE97F6A1E2371C14FCAE /* GeometryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryTests.swift; sourceTree = "<group>"; };
+		6D4F158B07364E88DB7903F4 /* ConnectionRetryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRetryState.swift; sourceTree = "<group>"; };
+		6E6CB54CCD3FE3D219FC6BFF /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		745C81F74D7E05172BB64474 /* AddDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceView.swift; sourceTree = "<group>"; };
+		7A673EA668400B3A0F41F88C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8056DF64A48EFAF65907A99D /* PairingCodeField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PairingCodeField.swift; sourceTree = "<group>"; };
+		8558ED695075F4DD976428C0 /* AbsoluteMouseReportTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = AbsoluteMouseReportTest.java; sourceTree = "<group>"; };
+		893A4DB6F58CF799B36FD7B6 /* DeviceDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscovery.swift; sourceTree = "<group>"; };
+		8B7DC1737674E0FDDB07C3E3 /* MenuPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPanelView.swift; sourceTree = "<group>"; };
+		8F506257090B22F02ABC951E /* InputWindowHandle.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = InputWindowHandle.java; sourceTree = "<group>"; };
+		9783056976F027F1BF58D234 /* SettingsComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsComponents.swift; sourceTree = "<group>"; };
+		97CD462DB9375FBCBEF2C99E /* LayoutCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutCanvasView.swift; sourceTree = "<group>"; };
+		98C9DB7387A0DA500E27EDBE /* WindowInfosListener.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = WindowInfosListener.java; sourceTree = "<group>"; };
+		9912438E2AB248B3CAA690BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9B45D37753AC47AB3DB7CE0B /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		9F6A13AB89754E613967AB50 /* WeftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A32795A3A985FE0D9605591F /* ArrangementLabelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangementLabelLayout.swift; sourceTree = "<group>"; };
+		A8BF9EE3507332DD5093DBE6 /* DeviceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailView.swift; sourceTree = "<group>"; };
+		A9B5D48F3EBA96DDFE71EBAD /* test_devices.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = test_devices.py; sourceTree = "<group>"; };
+		AB5585FC8C3728D7903F3694 /* ParserTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = ParserTest.java; sourceTree = "<group>"; };
+		AE98D7678CD86231D116E3B4 /* MacCursorCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCursorCapture.swift; sourceTree = "<group>"; };
+		B1E51F363930F5EF2542EABC /* DirectionSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionSelectionView.swift; sourceTree = "<group>"; };
+		B39C3E66B2B969AFF48939B2 /* PointerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerPath.swift; sourceTree = "<group>"; };
+		BA47E891DDAAA9224B9B2B70 /* MacCursorCaptureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacCursorCaptureTests.swift; sourceTree = "<group>"; };
+		BDC87A949C7F6D64CB91F7E7 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		C4E3F50745EE018352D99CA7 /* PointerVisibility.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = PointerVisibility.java; sourceTree = "<group>"; };
+		C8CF359065E5E344AFA18351 /* UhidDevice.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = UhidDevice.java; sourceTree = "<group>"; };
+		C9AEC4D64C689790ADB1F017 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		CAA119A721EBE87D9B3353F2 /* DeviceProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceProfile.swift; sourceTree = "<group>"; };
+		CAF3ED38A8C4A168579EC397 /* DeviceStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceStore.swift; sourceTree = "<group>"; };
+		DC9E881E606035E944834003 /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
+		DF2EE74699B838F79D9BD0FB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DFD80CB322FA6342C7FE568B /* WirelessAddressInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirelessAddressInput.swift; sourceTree = "<group>"; };
+		E1312A8447EF044552717FA1 /* weft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E60E83D47D7993A9063267E3 /* PointerPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerPathTests.swift; sourceTree = "<group>"; };
+		E63E9F2EE07F1E35584D5E5E /* MouseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseController.swift; sourceTree = "<group>"; };
+		E6E351435F6922CFB9CF7DD8 /* DeviceStore+Arrangement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceStore+Arrangement.swift"; sourceTree = "<group>"; };
+		E82D374ABF307FBFEF671921 /* DeviceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceState.swift; sourceTree = "<group>"; };
+		E913C05C322B24497626D9F8 /* EntryPointer.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = EntryPointer.java; sourceTree = "<group>"; };
+		EA73C294B1F8DBCCF6309F1D /* DeviceStore+Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceStore+Support.swift"; sourceTree = "<group>"; };
+		EB2E600B1A8E2F5441405ABF /* ConnectionRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRetryTests.swift; sourceTree = "<group>"; };
+		EF69B23E232A9DC01C4FE6BF /* ArrangementScreenTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangementScreenTile.swift; sourceTree = "<group>"; };
+		FD5D0D092E056B7D326F5BA7 /* WirelessAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirelessAddressField.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DE9DDC641C3C5A5ADB7ADF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CFAA65453DC971EA5FBF0727 /* libWeftCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5AB4E907ACB295277A4E2764 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21E47D452171090720CD394B /* libWeftCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EDFA9D296919FE0B9E27CA9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B2B98B7EBEEAC750EB3B86 /* libWeftCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		060B4C114154306D828EDB34 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				65602153A67DF376E5207A06 /* weft */,
+				4C29D92BED9016178B456507 /* WeftCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		0848EE6C576A263C166A8354 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				5C46C0D61E32AC22ADFFE7BC /* ExportOptions.plist */,
+				4051E955DB0DF3699D140218 /* Info.plist */,
+				57F66729126715BFF2D20BD8 /* Weft.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		0A299AE5517F0262201DC57C /* Android */ = {
+			isa = PBXGroup;
+			children = (
+				C871ECD0CCC8C3913D952B9A /* src */,
+				C00D6EABDAD01F2ACAEA41B1 /* stubs */,
+			);
+			path = Android;
+			sourceTree = "<group>";
+		};
+		0CD487CE50A9F9009D56C018 /* android */ = {
+			isa = PBXGroup;
+			children = (
+				13456FD01FDE3ECA9E4F9065 /* view */,
+				DEABF1FFDD4088BF2AD3ED21 /* window */,
+			);
+			path = android;
+			sourceTree = "<group>";
+		};
+		13456FD01FDE3ECA9E4F9065 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				8F506257090B22F02ABC951E /* InputWindowHandle.java */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		2438D5C122DEF31ED7D3C983 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				CAF3ED38A8C4A168579EC397 /* DeviceStore.swift */,
+				E6E351435F6922CFB9CF7DD8 /* DeviceStore+Arrangement.swift */,
+				127302311C042A1BFEC5C99D /* DeviceStore+Connections.swift */,
+				EA73C294B1F8DBCCF6309F1D /* DeviceStore+Support.swift */,
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		3F46066CA88053F58DBB1F28 /* baiyanwu */ = {
+			isa = PBXGroup;
+			children = (
+				BE3DC4FDF2BEA09080B64246 /* weft */,
+			);
+			path = baiyanwu;
+			sourceTree = "<group>";
+		};
+		4C29D92BED9016178B456507 /* WeftCore */ = {
+			isa = PBXGroup;
+			children = (
+				6D4F158B07364E88DB7903F4 /* ConnectionRetryState.swift */,
+				CAA119A721EBE87D9B3353F2 /* DeviceProfile.swift */,
+				2EBDD00384055895267C5FAA /* Geometry.swift */,
+				B39C3E66B2B969AFF48939B2 /* PointerPath.swift */,
+				57A2AF5EB2DA4696BDA9E252 /* ScreenArrangement.swift */,
+			);
+			path = WeftCore;
+			sourceTree = "<group>";
+		};
+		4FBE65226D66CAE943973136 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				1764AAAD473F2A3378C282F1 /* build-agent.sh */,
+				3C4256F324D64677DE90D886 /* release.sh */,
+				A9B5D48F3EBA96DDFE71EBAD /* test_devices.py */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		5A1B17D29EE1B64F10C25947 /* WeftTests */ = {
+			isa = PBXGroup;
+			children = (
+				EB2E600B1A8E2F5441405ABF /* ConnectionRetryTests.swift */,
+				3E2151A97162926AFB872453 /* DeviceRemovalTests.swift */,
+				BA47E891DDAAA9224B9B2B70 /* MacCursorCaptureTests.swift */,
+				4952DBFCF7DA0E114E02A28B /* PointerTransportTests.swift */,
+				08D55DF71A6BD64B3B0C7B62 /* UnifiedArrangementTests.swift */,
+			);
+			path = WeftTests;
+			sourceTree = "<group>";
+		};
+		65602153A67DF376E5207A06 /* weft */ = {
+			isa = PBXGroup;
+			children = (
+				66C373F4BBB19C1158886139 /* AgentConnection.swift */,
+				9912438E2AB248B3CAA690BF /* AppDelegate.swift */,
+				AE98D7678CD86231D116E3B4 /* MacCursorCapture.swift */,
+				C9AEC4D64C689790ADB1F017 /* main.swift */,
+				E63E9F2EE07F1E35584D5E5E /* MouseController.swift */,
+				93314F656918580E89270507 /* Models */,
+				A21AA2DCCD25F8577E2DFBB1 /* Services */,
+				2438D5C122DEF31ED7D3C983 /* Stores */,
+				D0650E2833254268F76AA1B9 /* Views */,
+			);
+			path = weft;
+			sourceTree = "<group>";
+		};
+		8DE5624116B3EA97EA8EC488 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6330F802994AC075CC29EE3D /* libWeftCore.a */,
+				E1312A8447EF044552717FA1 /* weft.app */,
+				00947D5BB19C37A5D8A74757 /* WeftCoreTests.xctest */,
+				9F6A13AB89754E613967AB50 /* WeftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93314F656918580E89270507 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E82D374ABF307FBFEF671921 /* DeviceState.swift */,
+				DFD80CB322FA6342C7FE568B /* WirelessAddressInput.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A21AA2DCCD25F8577E2DFBB1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				368A3987D8DFD785827C9E65 /* ADB.swift */,
+				893A4DB6F58CF799B36FD7B6 /* DeviceDiscovery.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B2C12ED1E1134398418723DA /* WeftCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				4B11EBCDF0C0FA8765F9D4A9 /* DeviceLayoutTests.swift */,
+				690AEE97F6A1E2371C14FCAE /* GeometryTests.swift */,
+				E60E83D47D7993A9063267E3 /* PointerPathTests.swift */,
+				2C15848EE8194B7FDE0603FB /* ScreenArrangementTests.swift */,
+			);
+			path = WeftCoreTests;
+			sourceTree = "<group>";
+		};
+		BE3DC4FDF2BEA09080B64246 /* weft */ = {
+			isa = PBXGroup;
+			children = (
+				5495EE3A1AD1B3EB67214DA4 /* AbsoluteMouseReport.java */,
+				8558ED695075F4DD976428C0 /* AbsoluteMouseReportTest.java */,
+				57161727A4FC673F10857CF5 /* BridgeAgent.java */,
+				5F145835D6565C5F0A69CB1C /* CursorParser.java */,
+				E913C05C322B24497626D9F8 /* EntryPointer.java */,
+				AB5585FC8C3728D7903F3694 /* ParserTest.java */,
+				C4E3F50745EE018352D99CA7 /* PointerVisibility.java */,
+				559DD16BE4D06103C1CECF89 /* ReusableMouse.java */,
+				54E8C0F9AAE9F9521907C60C /* ScreenMetrics.java */,
+				C8CF359065E5E344AFA18351 /* UhidDevice.java */,
+			);
+			path = weft;
+			sourceTree = "<group>";
+		};
+		C00D6EABDAD01F2ACAEA41B1 /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				0CD487CE50A9F9009D56C018 /* android */,
+			);
+			path = stubs;
+			sourceTree = "<group>";
+		};
+		C67C959E9FB7842A3B2714E6 /* io */ = {
+			isa = PBXGroup;
+			children = (
+				3F46066CA88053F58DBB1F28 /* baiyanwu */,
+			);
+			path = io;
+			sourceTree = "<group>";
+		};
+		C871ECD0CCC8C3913D952B9A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C67C959E9FB7842A3B2714E6 /* io */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		D0650E2833254268F76AA1B9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				745C81F74D7E05172BB64474 /* AddDeviceView.swift */,
+				A32795A3A985FE0D9605591F /* ArrangementLabelLayout.swift */,
+				EF69B23E232A9DC01C4FE6BF /* ArrangementScreenTile.swift */,
+				9B45D37753AC47AB3DB7CE0B /* Components.swift */,
+				A8BF9EE3507332DD5093DBE6 /* DeviceDetailView.swift */,
+				B1E51F363930F5EF2542EABC /* DirectionSelectionView.swift */,
+				BDC87A949C7F6D64CB91F7E7 /* GeneralSettingsView.swift */,
+				6E6CB54CCD3FE3D219FC6BFF /* HelpView.swift */,
+				97CD462DB9375FBCBEF2C99E /* LayoutCanvasView.swift */,
+				64A708B1FABE27DFC5E9CBE1 /* MenuPanelBackdrop.swift */,
+				8B7DC1737674E0FDDB07C3E3 /* MenuPanelView.swift */,
+				550C70C5423E0470C3ADE036 /* NumericSegmentField.swift */,
+				8056DF64A48EFAF65907A99D /* PairingCodeField.swift */,
+				1875AE11485D1CD8B9480C03 /* ScreenSelectionView.swift */,
+				9783056976F027F1BF58D234 /* SettingsComponents.swift */,
+				158FBC350E5DD7E177A9E39B /* SettingsView.swift */,
+				2287E00FBC4262846BBB6EA8 /* SidebarView.swift */,
+				22D51213AAE46673D8D106BB /* WeftCheckboxStyle.swift */,
+				1D04AD1CC07C4605360521A3 /* WeftTextField.swift */,
+				FD5D0D092E056B7D326F5BA7 /* WirelessAddressField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DEABF1FFDD4088BF2AD3ED21 /* window */ = {
+			isa = PBXGroup;
+			children = (
+				98C9DB7387A0DA500E27EDBE /* WindowInfosListener.java */,
+			);
+			path = window;
+			sourceTree = "<group>";
+		};
+		E17FAADF8883664D91D3E542 = {
+			isa = PBXGroup;
+			children = (
+				DC9E881E606035E944834003 /* LICENSE */,
+				DF2EE74699B838F79D9BD0FB /* README.md */,
+				0A299AE5517F0262201DC57C /* Android */,
+				E1BDF9DF48BAEEF914B880A4 /* Assets */,
+				0848EE6C576A263C166A8354 /* Config */,
+				4FBE65226D66CAE943973136 /* scripts */,
+				060B4C114154306D828EDB34 /* Sources */,
+				E85561307F1BBB3DAC4683DD /* Tests */,
+				8DE5624116B3EA97EA8EC488 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1BDF9DF48BAEEF914B880A4 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				7A673EA668400B3A0F41F88C /* Assets.xcassets */,
+				0261A3558523110462AB6297 /* logo.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		E85561307F1BBB3DAC4683DD /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B2C12ED1E1134398418723DA /* WeftCoreTests */,
+				5A1B17D29EE1B64F10C25947 /* WeftTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		05D6460E45ECB73732A138F3 /* WeftCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C752E1565FB588A3D26C49F /* Build configuration list for PBXNativeTarget "WeftCoreTests" */;
+			buildPhases = (
+				22278B13A57C3A52EE1D016D /* Sources */,
+				EDFA9D296919FE0B9E27CA9F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71E6D0D538E1417E58D78F5F /* PBXTargetDependency */,
+			);
+			name = WeftCoreTests;
+			packageProductDependencies = (
+			);
+			productName = WeftCoreTests;
+			productReference = 00947D5BB19C37A5D8A74757 /* WeftCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		16AEC07A4A6F4A0377522DB8 /* Weft */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34D45E77E700DC775C1EEB8F /* Build configuration list for PBXNativeTarget "Weft" */;
+			buildPhases = (
+				A7BB92044080B70D7E14234A /* Build Android agent */,
+				FFBEF0BDB66F9FF075CE3A25 /* Sources */,
+				21B7DD54C11E562AEA5CC4F2 /* Resources */,
+				5AB4E907ACB295277A4E2764 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D9535A94529075C8505127E1 /* PBXTargetDependency */,
+			);
+			name = Weft;
+			packageProductDependencies = (
+			);
+			productName = Weft;
+			productReference = E1312A8447EF044552717FA1 /* weft.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4BADE34FB0FC6DA5A0BADD87 /* WeftCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EB686B3D063C7C689A280147 /* Build configuration list for PBXNativeTarget "WeftCore" */;
+			buildPhases = (
+				D2DAD833B240A2BA69BBE6F2 /* Sources */,
+				0D4A2C08274DF221537158E6 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeftCore;
+			packageProductDependencies = (
+			);
+			productName = WeftCore;
+			productReference = 6330F802994AC075CC29EE3D /* libWeftCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F29EA189605B5A87E8A4CB44 /* WeftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B324F346234889F86394C9A2 /* Build configuration list for PBXNativeTarget "WeftTests" */;
+			buildPhases = (
+				67003EEE18C60F7188FF5AE9 /* Sources */,
+				2DE9DDC641C3C5A5ADB7ADF5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED7C5ACF0EE12A70CE7F1785 /* PBXTargetDependency */,
+				D21F4341006E44446C20BB34 /* PBXTargetDependency */,
+			);
+			name = WeftTests;
+			packageProductDependencies = (
+			);
+			productName = WeftTests;
+			productReference = 9F6A13AB89754E613967AB50 /* WeftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A52705DB524614DFF2D46DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					05D6460E45ECB73732A138F3 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					16AEC07A4A6F4A0377522DB8 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					4BADE34FB0FC6DA5A0BADD87 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+					F29EA189605B5A87E8A4CB44 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 6182D0FDA2826BBF8226C203 /* Build configuration list for PBXProject "Weft" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = E17FAADF8883664D91D3E542;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8DE5624116B3EA97EA8EC488 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				16AEC07A4A6F4A0377522DB8 /* Weft */,
+				4BADE34FB0FC6DA5A0BADD87 /* WeftCore */,
+				05D6460E45ECB73732A138F3 /* WeftCoreTests */,
+				F29EA189605B5A87E8A4CB44 /* WeftTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		21B7DD54C11E562AEA5CC4F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6EEBA7AE8749C6079130EB4 /* Assets.xcassets in Resources */,
+				1B664B0FC91E24C16E651731 /* LICENSE in Resources */,
+				15CE87579FC5A1AA278DBF46 /* logo.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D4A2C08274DF221537158E6 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		A7BB92044080B70D7E14234A /* Build Android agent */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Android agent";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/weft-agent.dex",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "#!/bin/bash\n# Xcode build phase: compile the Android helper and embed it in the app resources.\nset -euo pipefail\n\nROOT=\"${SRCROOT:?Run this script as the Xcode Build Android agent phase.}\"\nSDK=\"${ANDROID_SDK_ROOT:-${ANDROID_HOME:-$HOME/Library/Android/sdk}}\"\nANDROID_JAR=\"$SDK/platforms/android-36/android.jar\"\nD8=\"$SDK/build-tools/36.0.0/d8\"\nexport JAVA_HOME=\"${JAVA_HOME:-$(/usr/libexec/java_home)}\"\nexport PATH=\"$JAVA_HOME/bin:$PATH\"\nif [[ ! -f \"$ANDROID_JAR\" || ! -x \"$D8\" ]]; then\n  echo 'error: Install Android SDK platform 36 and Build Tools 36.0.0. Set ANDROID_SDK_ROOT for a custom SDK location.' >&2\n  exit 1\nfi\nBUILD_DIR=\"${DERIVED_FILE_DIR:?}/android-agent\"\nRESOURCES=\"${TARGET_BUILD_DIR:?}/${UNLOCALIZED_RESOURCES_FOLDER_PATH:?}\"\nmkdir -p \"$BUILD_DIR\" \"$RESOURCES\"\n# These directories contain only this build phase's generated files.\nrm -rf \"$BUILD_DIR/stubs\" \"$BUILD_DIR/classes\" \"$BUILD_DIR/dex\"\nmkdir -p \"$BUILD_DIR/stubs\" \"$BUILD_DIR/classes\" \"$BUILD_DIR/dex\"\nstub_sources=()\nwhile IFS= read -r -d '' source; do stub_sources+=(\"$source\"); done < <(find \"$ROOT/Android/stubs\" -name '*.java' -print0)\njavac -source 8 -target 8 -cp \"$ANDROID_JAR\" -d \"$BUILD_DIR/stubs\" \"${stub_sources[@]}\"\njar cf \"$BUILD_DIR/hidden-api-stubs.jar\" -C \"$BUILD_DIR/stubs\" .\nagent_sources=()\nwhile IFS= read -r -d '' source; do agent_sources+=(\"$source\"); done < <(find \"$ROOT/Android/src\" -name '*.java' ! -name '*Test.java' -print0)\njavac -source 8 -target 8 -cp \"$ANDROID_JAR:$BUILD_DIR/hidden-api-stubs.jar\" -d \"$BUILD_DIR/classes\" \"${agent_sources[@]}\"\nif [[ \"${WEFT_ANDROID_TESTS:-NO}\" == YES ]]; then\n  test_sources=()\n  while IFS= read -r -d '' source; do test_sources+=(\"$source\"); done < <(find \"$ROOT/Android/src\" -name '*Test.java' -print0)\n  mkdir -p \"$BUILD_DIR/tests\"\n  javac -source 8 -target 8 -cp \"$BUILD_DIR/classes\" -d \"$BUILD_DIR/tests\" \"${test_sources[@]}\"\n  java -cp \"$BUILD_DIR/classes:$BUILD_DIR/tests\" io.baiyanwu.weft.ParserTest\n  java -cp \"$BUILD_DIR/classes:$BUILD_DIR/tests\" io.baiyanwu.weft.AbsoluteMouseReportTest\nfi\nclasses=()\nwhile IFS= read -r -d '' source; do classes+=(\"$source\"); done < <(find \"$BUILD_DIR/classes\" -name '*.class' -print0)\n\"$D8\" --lib \"$ANDROID_JAR\" --classpath \"$BUILD_DIR/hidden-api-stubs.jar\" --min-api 26 --output \"$BUILD_DIR/dex\" \"${classes[@]}\"\ncp \"$BUILD_DIR/dex/classes.dex\" \"$RESOURCES/weft-agent.dex\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22278B13A57C3A52EE1D016D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				690545DE3FA09571532B0553 /* DeviceLayoutTests.swift in Sources */,
+				593C4FDF08DAD663CA6A5DD5 /* GeometryTests.swift in Sources */,
+				8DA6675CB2B7BF7EB3E2BBCE /* PointerPathTests.swift in Sources */,
+				9F5825F9B3FEBB4793FED981 /* ScreenArrangementTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67003EEE18C60F7188FF5AE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CBC8A94D27F483F5A84912B /* ConnectionRetryTests.swift in Sources */,
+				1E115D9C9D0D798556F44213 /* DeviceRemovalTests.swift in Sources */,
+				4802750E26AC562B7D7AA29D /* MacCursorCaptureTests.swift in Sources */,
+				8930DA6919C799A38B007293 /* PointerTransportTests.swift in Sources */,
+				FD1288C3541ECC46FFAFDC2D /* UnifiedArrangementTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2DAD833B240A2BA69BBE6F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D468C8C3593C75FAAD3FC90 /* ConnectionRetryState.swift in Sources */,
+				4AA2D6EAC4C40E3F859CF133 /* DeviceProfile.swift in Sources */,
+				B0D5506D6559FDCA6319A49D /* Geometry.swift in Sources */,
+				258C3DC942816AE6F25BF905 /* PointerPath.swift in Sources */,
+				22563178CCA43AE10C9A020D /* ScreenArrangement.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBEF0BDB66F9FF075CE3A25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5439C201732D172691EF0D4 /* ADB.swift in Sources */,
+				71D040A1BBBB3F57819C7803 /* AddDeviceView.swift in Sources */,
+				03F36AAFA80B7AFAA73DB614 /* AgentConnection.swift in Sources */,
+				CC9B5CF81060966F41721A95 /* AppDelegate.swift in Sources */,
+				1F025818F6E076B1854A2FAB /* ArrangementLabelLayout.swift in Sources */,
+				AA2C933229CE89F22B5D5C11 /* ArrangementScreenTile.swift in Sources */,
+				2D3078D4D4CE1F63F11C4EFD /* Components.swift in Sources */,
+				F792A043E89421306F9A4664 /* DeviceDetailView.swift in Sources */,
+				5955EB38F8BFA3E6A36B0010 /* DeviceDiscovery.swift in Sources */,
+				12467948ABA7EB5F3F25480B /* DeviceState.swift in Sources */,
+				267F31F6BA16600C7B7BC57D /* DeviceStore+Arrangement.swift in Sources */,
+				462A4432035D3A1C4F41C36F /* DeviceStore+Connections.swift in Sources */,
+				B0E1BEA0EC16AFFAF9052733 /* DeviceStore+Support.swift in Sources */,
+				E7C8F6795DE69AE0A5CB07E7 /* DeviceStore.swift in Sources */,
+				715C0157A14B9417AD841FED /* DirectionSelectionView.swift in Sources */,
+				8372431858B0873ABB7FD799 /* GeneralSettingsView.swift in Sources */,
+				7B60F6541C0D674A21BC3F7A /* HelpView.swift in Sources */,
+				D114D7F740E3C5759CCE160C /* LayoutCanvasView.swift in Sources */,
+				B6C3CC81673FDB965DDA1469 /* MacCursorCapture.swift in Sources */,
+				4C4FA4E047F078FC7BD5CF80 /* MenuPanelBackdrop.swift in Sources */,
+				7CDD07401E86D34ED18D3B11 /* MenuPanelView.swift in Sources */,
+				78E55C8342CC42A6F4E97014 /* MouseController.swift in Sources */,
+				4A015F6542CF4393D4A180A8 /* NumericSegmentField.swift in Sources */,
+				EF5104EC431D8EA512A5DBCE /* PairingCodeField.swift in Sources */,
+				E9F1F75950E0B5F6DF2847D0 /* ScreenSelectionView.swift in Sources */,
+				CDABD70380F5F10ABBA95F7F /* SettingsComponents.swift in Sources */,
+				02243202B1905EDABE17C63B /* SettingsView.swift in Sources */,
+				A4C2906F41DAB510835FB81C /* SidebarView.swift in Sources */,
+				7406A1649B8E14FA51638BA6 /* WeftCheckboxStyle.swift in Sources */,
+				AFC2337375505130B09F1D25 /* WeftTextField.swift in Sources */,
+				D4183E86E542BA3841BADEB9 /* WirelessAddressField.swift in Sources */,
+				139D87777803DC930EDE76A0 /* WirelessAddressInput.swift in Sources */,
+				1B3A0408D8EC924C705AAA55 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71E6D0D538E1417E58D78F5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BADE34FB0FC6DA5A0BADD87 /* WeftCore */;
+			targetProxy = F2A5260A21BC28C711D79303 /* PBXContainerItemProxy */;
+		};
+		D21F4341006E44446C20BB34 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BADE34FB0FC6DA5A0BADD87 /* WeftCore */;
+			targetProxy = 59DB4867ECAE0A103A3DBDFC /* PBXContainerItemProxy */;
+		};
+		D9535A94529075C8505127E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4BADE34FB0FC6DA5A0BADD87 /* WeftCore */;
+			targetProxy = 4A62EA968694A7440A3DE904 /* PBXContainerItemProxy */;
+		};
+		ED7C5ACF0EE12A70CE7F1785 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16AEC07A4A6F4A0377522DB8 /* Weft */;
+			targetProxy = F0E8667E670A46AC0868CC32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5CEF985860B92FE9D6D92436 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57F66729126715BFF2D20BD8 /* Weft.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "arm64 x86_64";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5D3FEDF5C6F004E58D2DF1E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft;
+				PRODUCT_MODULE_NAME = Weft;
+				PRODUCT_NAME = weft;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		603F2F606D189186B3C9C65E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.core.tests;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6C5CA008B167C994783E5861 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft;
+				PRODUCT_MODULE_NAME = Weft;
+				PRODUCT_NAME = weft;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9E2E3B63C5F7EEB727643417 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/weft.app/Contents/MacOS/weft";
+			};
+			name = Debug;
+		};
+		A5F571F7C4D6E7D0D47B91C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 57F66729126715BFF2D20BD8 /* Weft.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BDBF3501B19FCBE29E9804CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.core.tests;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BF1B7F1CD71699AC41819F1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/weft.app/Contents/MacOS/weft";
+			};
+			name = Release;
+		};
+		CB46CBF9F445469E498EC973 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.core;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D33CD80C31723B1D41DECCE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.baiyanwu.weft.core;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		34D45E77E700DC775C1EEB8F /* Build configuration list for PBXNativeTarget "Weft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5D3FEDF5C6F004E58D2DF1E6 /* Debug */,
+				6C5CA008B167C994783E5861 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3C752E1565FB588A3D26C49F /* Build configuration list for PBXNativeTarget "WeftCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDBF3501B19FCBE29E9804CB /* Debug */,
+				603F2F606D189186B3C9C65E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6182D0FDA2826BBF8226C203 /* Build configuration list for PBXProject "Weft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5F571F7C4D6E7D0D47B91C2 /* Debug */,
+				5CEF985860B92FE9D6D92436 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B324F346234889F86394C9A2 /* Build configuration list for PBXNativeTarget "WeftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E2E3B63C5F7EEB727643417 /* Debug */,
+				BF1B7F1CD71699AC41819F1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EB686B3D063C7C689A280147 /* Build configuration list for PBXNativeTarget "WeftCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB46CBF9F445469E498EC973 /* Debug */,
+				D33CD80C31723B1D41DECCE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A52705DB524614DFF2D46DB /* Project object */;
+}
