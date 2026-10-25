@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA7CF3014D1B4908A65CBB0F /* DeviceCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20371CC4525442CD88729086 /* DeviceCardView.swift */; };
+		1581B68D31B8B7AC82ED023F /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE31377899B581603E017D1 /* DeviceListView.swift */; };
 		02243202B1905EDABE17C63B /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158FBC350E5DD7E177A9E39B /* SettingsView.swift */; };
 		03F36AAFA80B7AFAA73DB614 /* AgentConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C373F4BBB19C1158886139 /* AgentConnection.swift */; };
 		12467948ABA7EB5F3F25480B /* DeviceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82D374ABF307FBFEF671921 /* DeviceState.swift */; };
@@ -115,6 +117,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		20371CC4525442CD88729086 /* DeviceCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCardView.swift; sourceTree = "<group>"; };
+		FAE31377899B581603E017D1 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
 		00947D5BB19C37A5D8A74757 /* WeftCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeftCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0261A3558523110462AB6297 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		08D55DF71A6BD64B3B0C7B62 /* UnifiedArrangementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedArrangementTests.swift; sourceTree = "<group>"; };
@@ -443,6 +447,8 @@
 				1875AE11485D1CD8B9480C03 /* ScreenSelectionView.swift */,
 				9783056976F027F1BF58D234 /* SettingsComponents.swift */,
 				158FBC350E5DD7E177A9E39B /* SettingsView.swift */,
+				FAE31377899B581603E017D1 /* DeviceListView.swift */,
+				20371CC4525442CD88729086 /* DeviceCardView.swift */,
 				2287E00FBC4262846BBB6EA8 /* SidebarView.swift */,
 				22D51213AAE46673D8D106BB /* WeftCheckboxStyle.swift */,
 				1D04AD1CC07C4605360521A3 /* WeftTextField.swift */,
@@ -751,6 +757,8 @@
 				E9F1F75950E0B5F6DF2847D0 /* ScreenSelectionView.swift in Sources */,
 				CDABD70380F5F10ABBA95F7F /* SettingsComponents.swift in Sources */,
 				02243202B1905EDABE17C63B /* SettingsView.swift in Sources */,
+				1581B68D31B8B7AC82ED023F /* DeviceListView.swift in Sources */,
+				CA7CF3014D1B4908A65CBB0F /* DeviceCardView.swift in Sources */,
 				A4C2906F41DAB510835FB81C /* SidebarView.swift in Sources */,
 				7406A1649B8E14FA51638BA6 /* WeftCheckboxStyle.swift in Sources */,
 				AFC2337375505130B09F1D25 /* WeftTextField.swift in Sources */,
