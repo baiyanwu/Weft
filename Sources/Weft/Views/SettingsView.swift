@@ -21,6 +21,7 @@ struct SettingsView: View {
                             }
                             switch store.section {
                             case .devices: devicesContent(viewportHeight: geometry.size.height)
+                            case .mouseButtons: MouseButtonMappingView(store: store)
                             case .general: GeneralSettingsView(store: store)
                             case .help: HelpView(store: store)
                             }
@@ -31,7 +32,8 @@ struct SettingsView: View {
             }
             Divider()
             HStack(spacing: 9) {
-                Image(systemName: "checkmark"); Text("更改自动保存")
+                Image(systemName: "checkmark")
+                Text(store.section == .mouseButtons ? "按键配置自动保存，仅在控制对应设备时生效" : "更改自动保存")
                 Spacer()
                 if store.paused { Text("全部连接已暂停").foregroundStyle(.orange) }
                 Text("仅共享鼠标")

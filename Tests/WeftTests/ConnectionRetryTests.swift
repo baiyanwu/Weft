@@ -122,7 +122,7 @@ final class ConnectionRetryTests: XCTestCase {
     func testDisablingAutoConnectDoesNotDisconnectAReadyDevice() throws {
         let (store, channel, _) = try fixture(autoConnect: true)
         store.reconcile()
-        channel.onEvent?(["type": "ready", "protocol": 3, "pointerMode": "absolute"])
+        channel.onEvent?(["type": "ready", "protocol": 4, "pointerMode": "absolute"])
         store.update("device") { $0.autoConnect = false }
         XCTAssertEqual(store.status("device").phase, .ready)
         XCTAssertEqual(channel.stops, 0)
@@ -143,7 +143,7 @@ final class ConnectionRetryTests: XCTestCase {
         store.reconcile()
         channel.onFailure?("first failure")
         session.attemptAt = -100; store.reconcile()
-        channel.onEvent?(["type": "ready", "protocol": 3, "pointerMode": "absolute"])
+        channel.onEvent?(["type": "ready", "protocol": 4, "pointerMode": "absolute"])
         XCTAssertEqual(session.retry.attempts, 0)
         XCTAssertFalse(session.retry.isActive)
         channel.onFailure?("connection lost")

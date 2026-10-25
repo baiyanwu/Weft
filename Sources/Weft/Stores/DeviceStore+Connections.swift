@@ -50,8 +50,9 @@ extension DeviceStore {
     }
     func wireMouse() {
         mouse.onEnter = { [weak self] id, position, epoch in
-            guard let self, self.profile(id) != nil, let seam = self.mouse.activePortal?.seam else { return }
+            guard let self, let device = self.profile(id), let seam = self.mouse.activePortal?.seam else { return }
             let geometry = seam.remote
+            self.sessions[id]?.connection.send(device.mouseMapping.command(epoch: epoch))
             self.sessions[id]?.connection.send("enter-abs \(epoch) 0 \(Int(position.x.rounded())) \(Int(position.y.rounded())) \(geometry.width) \(geometry.height) \(geometry.rotation)")
         }
         mouse.onRelease = { [weak self] id, epoch, reason in
@@ -155,7 +156,7 @@ extension DeviceStore {
         session.lastMessage = now
         switch type {
         case "ready":
-            guard event["protocol"] as? Int == 3, event["pointerMode"] as? String == "absolute" else { failed(id, "控制程序版本不匹配"); return }
+            guard event["protocol"] as? Int == 4, event["pointerMode"] as? String == "absolute" else { failed(id, "控制程序版本不匹配"); return }
             receiveScreenGeometry(id, event)
             requested.remove(id)
             session.automaticAttempt = false

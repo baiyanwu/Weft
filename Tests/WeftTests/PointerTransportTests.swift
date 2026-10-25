@@ -29,6 +29,7 @@ final class PointerTransportTests: XCTestCase {
         connection.sendPointer(frame(8, 0, 1))
         connection.sendPointer(frame(9))
         connection.send("release 1")
+        connection.send("map-buttons 2 1 original original original back original")
         connection.send("enter-abs 2 0 0 10 100 100 0")
         connection.sendPointer(frame(1, epoch: 2))
         connection.sendPointer(frame(2, epoch: 2))
@@ -38,7 +39,7 @@ final class PointerTransportTests: XCTestCase {
         wait(for: [finished], timeout: 2)
         XCTAssertEqual(lines, [frame(1).command, frame(3).command, frame(4, 1).command,
             frame(6, 1).command, frame(7).command, frame(8, 0, 1).command, frame(9).command,
-            "release 1", "enter-abs 2 0 0 10 100 100 0", frame(1, epoch: 2).command,
+            "release 1", "map-buttons 2 1 original original original back original", "enter-abs 2 0 0 10 100 100 0", frame(1, epoch: 2).command,
             frame(3, epoch: 2).command, "done"])
     }
 }

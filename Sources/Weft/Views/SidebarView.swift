@@ -7,20 +7,8 @@ struct SidebarView: View {
             HStack(spacing: 11) { BrandMark(size: 44); Text("weft").font(.system(size: 25, weight: .bold)) }
                 .padding(.horizontal, 24).padding(.vertical, 21)
             Divider().padding(.horizontal, 20)
-            Button { store.select(nil) } label: {
-                HStack(spacing: 14) {
-                    Image(systemName: "desktopcomputer").font(.system(size: 28)).frame(width: 34)
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("Mac").fontWeight(.medium)
-                        Text(store.activeDeviceID == nil ? "本机 · 当前控制" : "本机").font(.caption).foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                }.padding(.horizontal, 18).frame(height: 68).contentShape(Rectangle())
-                    .background(store.section == .devices ? WeftStyle.selection : LinearGradient(colors: [.clear], startPoint: .top, endPoint: .bottom))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            }.buttonStyle(.plain).padding(.horizontal, 8).padding(.vertical, 6)
-                .accessibilityAddTraits(store.section == .devices ? .isSelected : [])
-            Divider().padding(.horizontal, 20)
+            navigation("设备与布局", icon: "display.2", section: .devices).padding(.top, 8)
+            navigation("鼠标按键", icon: "computermouse", section: .mouseButtons).padding(.top, 4)
             Spacer(minLength: 24)
             Divider().padding(.horizontal, 20)
             navigation("通用设置", icon: "gearshape", section: .general).padding(.top, 8)
@@ -39,5 +27,7 @@ struct SidebarView: View {
                 .overlay(alignment: .leading) { if store.section == section { Rectangle().fill(WeftStyle.accent).frame(width: 3) } }
                 .clipShape(RoundedRectangle(cornerRadius: 10))
         }.buttonStyle(.plain).padding(.horizontal, 8)
+            .accessibilityLabel(title)
+            .accessibilityAddTraits(store.section == section ? .isSelected : [])
     }
 }

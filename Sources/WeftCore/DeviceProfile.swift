@@ -15,6 +15,7 @@ public struct DeviceProfile: Codable, Identifiable, Equatable {
     public var speed: Double
     public var autoConnect: Bool
     public var autoCross: Bool
+    public var mouseMapping = MouseButtonMapping()
     public var screenGeometry: RemoteScreenGeometry?
     public var edgeOffsetMM: Double?
 
@@ -27,7 +28,7 @@ public struct DeviceProfile: Codable, Identifiable, Equatable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case id, name, model, kind, direction, displayID, position, speed, autoConnect, autoCross, screenGeometry, edgeOffsetMM
+        case id, name, model, kind, direction, displayID, position, speed, autoConnect, autoCross, mouseMapping, screenGeometry, edgeOffsetMM
     }
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -42,6 +43,7 @@ public struct DeviceProfile: Codable, Identifiable, Equatable {
         autoConnect = try values.decode(Bool.self, forKey: .autoConnect)
         // Legacy profiles had no device-level setting; do not carry a global disable into every device.
         autoCross = try values.decodeIfPresent(Bool.self, forKey: .autoCross) ?? true
+        mouseMapping = (try? values.decode(MouseButtonMapping.self, forKey: .mouseMapping)) ?? MouseButtonMapping()
         screenGeometry = try values.decodeIfPresent(RemoteScreenGeometry.self, forKey: .screenGeometry)
         edgeOffsetMM = try values.decodeIfPresent(Double.self, forKey: .edgeOffsetMM)
     }
