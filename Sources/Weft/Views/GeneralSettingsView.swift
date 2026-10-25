@@ -17,6 +17,7 @@ struct GeneralSettingsView: View {
                     }
                 }
             }
+            ADBSettingsView()
             SettingsCard(title: "跨屏切换") {
                 VStack(spacing: 12) {
                     PreferenceRow(title: "自动跨屏", subtitle: "按设备分别设置，开关互不影响") {

@@ -1,14 +1,23 @@
 import Foundation
 
 enum ADB {
-    static var path: String? {
-        [ProcessInfo.processInfo.environment["WEFT_ADB"],
-         FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Android/sdk/platform-tools/adb").path,
-         "/opt/homebrew/bin/adb", "/usr/local/bin/adb"].compactMap { $0 }
-            .first { FileManager.default.isExecutableFile(atPath: $0) }
+    static var path: String? { try? ADBConfiguration.shared.requireExecutable().path }
+
+    static func version(at path: String) -> String? {
+        var directory: ObjCBool = false
+        guard FileManager.default.fileExists(atPath: path, isDirectory: &directory), !directory.boolValue,
+              FileManager.default.isExecutableFile(atPath: path),
+              let output = try? run(at: path, ["version"], timeout: 2),
+              output.hasPrefix("Android Debug Bridge version "),
+              let version = output.split(separator: "\n").first(where: { $0.hasPrefix("Version ") }) else { return nil }
+        return String(version.dropFirst("Version ".count))
     }
+
     static func run(_ args: [String], input: String? = nil, timeout: Double = 8) throws -> String {
-        guard let executable = path else { throw BridgeError.message("未找到 ADB，请安装 Android Platform Tools") }
+        try run(at: ADBConfiguration.shared.requireExecutable().path, args, input: input, timeout: timeout)
+    }
+
+    static func run(at executable: String, _ args: [String], input: String? = nil, timeout: Double = 8) throws -> String {
         let child = Process(), output = Pipe(), stdin = Pipe()
         child.executableURL = URL(fileURLWithPath: executable); child.arguments = args
         child.standardOutput = output; child.standardError = output; child.standardInput = stdin

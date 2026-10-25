@@ -50,10 +50,11 @@ final class AgentConnection: AgentTransport {
         queue.async { [weak self] in
             guard let self, self.current() == token else { return }; self.stopWorker()
             do {
-                guard let adb = ADB.path, let dex = Bundle.main.url(forResource: "weft-agent", withExtension: "dex") else {
-                    throw BridgeError.message("未找到 ADB 或 Android 控制程序")
+                let adb = try ADBConfiguration.shared.requireExecutable().path
+                guard let dex = Bundle.main.url(forResource: "weft-agent", withExtension: "dex") else {
+                    throw BridgeError.message("未找到 Android 控制程序")
                 }
-                _ = try ADB.run(["-s", serial, "push", dex.path, "/data/local/tmp/weft-agent-v2.dex"], timeout: 10)
+                _ = try ADB.run(at: adb, ["-s", serial, "push", dex.path, "/data/local/tmp/weft-agent-v2.dex"], timeout: 10)
                 guard self.current() == token else { return }
                 let child = Process(), input = Pipe(), outputPipe = Pipe(), errors = Pipe()
                 child.executableURL = URL(fileURLWithPath: adb)

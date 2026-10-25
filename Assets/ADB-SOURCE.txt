@@ -1,0 +1,13 @@
+Android Debug Bridge, Platform-Tools 37.0.1 (build 15733141)
+Upstream: https://developer.android.com/tools/releases/platform-tools
+Upstream source: https://android.googlesource.com/platform/packages/modules/adb/
+Copied from the installed Android SDK Platform-Tools 37.0.1 on 2026-10-26.
+Unmodified universal executable: arm64 + x86_64.
+The built app re-signs the copied helper with its own signing identity.
+
+SHA-256 of the source files before app signing:
+1811e253b21b12cbfda7201ebaf86c10e7ddcb5c606a7a81f7c82b4c429c2d3b  adb
+356cc66516060e4da6bdc53e6f0bbb8e8101673f326b73c68d535eddd04dd7b1  ADB-NOTICE.txt
+
+ADB-NOTICE.txt contains the complete upstream Platform-Tools notices.
+The app bundles adb only, not the other Platform-Tools executables.

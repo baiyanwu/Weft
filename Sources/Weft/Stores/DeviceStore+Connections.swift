@@ -6,6 +6,9 @@ extension DeviceStore {
     func start() {
         guard !preview else { return }
         stopped = false
+        let adb = ADBConfiguration.shared
+        observeADBConfiguration(adb)
+        adb.scan()
         mouse.installTap(); permissionGranted = mouse.hasTap
         heartbeatTimer = Timer(timeInterval: 0.4, repeats: true) { [weak self] _ in self?.tick() }
         motionTimer = Timer(timeInterval: 1.0 / 120, repeats: true) { [weak self] _ in self?.mouse.tick() }
@@ -13,10 +16,37 @@ extension DeviceStore {
         RunLoop.main.add(motionTimer!, forMode: .common)
         tick()
     }
+    func observeADBConfiguration(_ adb: ADBConfiguration) {
+        adbObservation = adb.$selected.map { $0?.path }.removeDuplicates().dropFirst()
+            .receive(on: DispatchQueue.main).sink { [weak self] _ in self?.adbConfigurationChanged() }
+        adbErrorObservation = adb.$error.removeDuplicates().receive(on: DispatchQueue.main)
+            .sink { [weak self] message in
+                guard let self, !self.stopped else { return }
+                self.discoveryError = message
+            }
+    }
     func stop() {
         stopped = true; mouse.returnToMac("weft 已退出"); mouse.uninstallTap()
         heartbeatTimer?.invalidate(); motionTimer?.invalidate()
+        adbObservation = nil; adbErrorObservation = nil
         for session in sessions.values { session.connection.stop() }
+    }
+    func adbConfigurationChanged() {
+        guard !stopped, !preview else { return }
+        mouse.returnToMac("ADB 配置已更改")
+        requested.formUnion(profiles.filter {
+            !suspended.contains($0.id) && ([.ready, .connecting].contains(status($0.id).phase) ||
+                sessions[$0.id]?.retry.isActive == true)
+        }.map(\.id))
+        for session in sessions.values {
+            session.connection.onEvent = nil; session.connection.onFailure = nil
+            session.connection.stop()
+        }
+        sessions.removeAll(); statuses.removeAll(); endpoints.removeAll()
+        discovery.invalidate()
+        lastScan = -100
+        if ADB.path != nil { discovery.scan() }
+        refreshPortals(); onStateChange?()
     }
     func wireMouse() {
         mouse.onEnter = { [weak self] id, position, epoch in
@@ -44,7 +74,7 @@ extension DeviceStore {
         if mouse.hasTap && !AXIsProcessTrusted() { mouse.uninstallTap() }
         if !mouse.hasTap { mouse.installTap() }
         if permissionGranted != mouse.hasTap { permissionGranted = mouse.hasTap; onStateChange?() }
-        if now - lastScan > 2 { lastScan = now; discovery.scan() }
+        if now - lastScan > 2, ADB.path != nil { lastScan = now; discovery.scan() }
         if !paused && !sleeping {
             for device in profiles {
                 guard let session = sessions[device.id] else { continue }

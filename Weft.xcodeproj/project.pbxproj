@@ -60,6 +60,13 @@
 		F5439C201732D172691EF0D4 /* ADB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368A3987D8DFD785827C9E65 /* ADB.swift */; };
 		F792A043E89421306F9A4664 /* DeviceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BF9EE3507332DD5093DBE6 /* DeviceDetailView.swift */; };
 		FD1288C3541ECC46FFAFDC2D /* UnifiedArrangementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D55DF71A6BD64B3B0C7B62 /* UnifiedArrangementTests.swift */; };
+		85ABF47D554B65F14752E6CE /* ADBResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A464A89518B04B4F30751864 /* ADBResolver.swift */; };
+		8C008F48945BDF5AF8DAD1E9 /* ADBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03731286BEEC1E900ACFBA57 /* ADBTests.swift */; };
+		B35761E175FDD759A4AEA7C0 /* ADBConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97A7DEFBB9B02D2502C02B47 /* ADBConfiguration.swift */; };
+		759B1F4F50BF678CCC9E5689 /* ADBSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBABF65575F80088A1E2BB77 /* ADBSettingsView.swift */; };
+		BA60AB2A22490A8B7AF1D355 /* adb in Helpers */ = {isa = PBXBuildFile; fileRef = 0B76440527489F3DDFC76C15 /* adb */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E8B4DD44FACADDD33E2F5076 /* ADB-NOTICE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 15E886F86FBE4A54B2C8A1F6 /* ADB-NOTICE.txt */; };
+		3DDAD81EC4197624DA3DE4FA /* ADB-SOURCE.txt in Resources */ = {isa = PBXBuildFile; fileRef = DF613D1272E21D3ADDCC7CF9 /* ADB-SOURCE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +99,20 @@
 			remoteInfo = WeftCore;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B4F2059C67084533A9678101 /* Embed ADB */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Helpers;
+			dstSubfolderSpec = 1;
+			files = (
+				BA60AB2A22490A8B7AF1D355 /* adb in Helpers */,
+			);
+			name = "Embed ADB";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00947D5BB19C37A5D8A74757 /* WeftCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeftCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +188,13 @@
 		EB2E600B1A8E2F5441405ABF /* ConnectionRetryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRetryTests.swift; sourceTree = "<group>"; };
 		EF69B23E232A9DC01C4FE6BF /* ArrangementScreenTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrangementScreenTile.swift; sourceTree = "<group>"; };
 		FD5D0D092E056B7D326F5BA7 /* WirelessAddressField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WirelessAddressField.swift; sourceTree = "<group>"; };
+		A464A89518B04B4F30751864 /* ADBResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADBResolver.swift; sourceTree = "<group>"; };
+		03731286BEEC1E900ACFBA57 /* ADBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADBTests.swift; sourceTree = "<group>"; };
+		97A7DEFBB9B02D2502C02B47 /* ADBConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ADBConfiguration.swift"; sourceTree = "<group>"; };
+		CBABF65575F80088A1E2BB77 /* ADBSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ADBSettingsView.swift"; sourceTree = "<group>"; };
+		0B76440527489F3DDFC76C15 /* adb */ = {isa = PBXFileReference; lastKnownFileType = compiled.mach-o.executable; path = "adb"; sourceTree = "<group>"; };
+		15E886F86FBE4A54B2C8A1F6 /* ADB-NOTICE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ADB-NOTICE.txt"; sourceTree = "<group>"; };
+		DF613D1272E21D3ADDCC7CF9 /* ADB-SOURCE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "ADB-SOURCE.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +314,7 @@
 		5A1B17D29EE1B64F10C25947 /* WeftTests */ = {
 			isa = PBXGroup;
 			children = (
+				03731286BEEC1E900ACFBA57 /* ADBTests.swift */,
 				EB2E600B1A8E2F5441405ABF /* ConnectionRetryTests.swift */,
 				3E2151A97162926AFB872453 /* DeviceRemovalTests.swift */,
 				BA47E891DDAAA9224B9B2B70 /* MacCursorCaptureTests.swift */,
@@ -334,6 +363,8 @@
 		A21AA2DCCD25F8577E2DFBB1 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				97A7DEFBB9B02D2502C02B47 /* ADBConfiguration.swift */,
+				A464A89518B04B4F30751864 /* ADBResolver.swift */,
 				368A3987D8DFD785827C9E65 /* ADB.swift */,
 				893A4DB6F58CF799B36FD7B6 /* DeviceDiscovery.swift */,
 			);
@@ -395,6 +426,7 @@
 		D0650E2833254268F76AA1B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBABF65575F80088A1E2BB77 /* ADBSettingsView.swift */,
 				745C81F74D7E05172BB64474 /* AddDeviceView.swift */,
 				A32795A3A985FE0D9605591F /* ArrangementLabelLayout.swift */,
 				EF69B23E232A9DC01C4FE6BF /* ArrangementScreenTile.swift */,
@@ -445,6 +477,9 @@
 		E1BDF9DF48BAEEF914B880A4 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				DF613D1272E21D3ADDCC7CF9 /* ADB-SOURCE.txt */,
+				15E886F86FBE4A54B2C8A1F6 /* ADB-NOTICE.txt */,
+				0B76440527489F3DDFC76C15 /* adb */,
 				7A673EA668400B3A0F41F88C /* Assets.xcassets */,
 				0261A3558523110462AB6297 /* logo.png */,
 			);
@@ -486,6 +521,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 34D45E77E700DC775C1EEB8F /* Build configuration list for PBXNativeTarget "Weft" */;
 			buildPhases = (
+				B4F2059C67084533A9678101 /* Embed ADB */,
 				A7BB92044080B70D7E14234A /* Build Android agent */,
 				FFBEF0BDB66F9FF075CE3A25 /* Sources */,
 				21B7DD54C11E562AEA5CC4F2 /* Resources */,
@@ -595,6 +631,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DDAD81EC4197624DA3DE4FA /* ADB-SOURCE.txt in Resources */,
+				E8B4DD44FACADDD33E2F5076 /* ADB-NOTICE.txt in Resources */,
 				E6EEBA7AE8749C6079130EB4 /* Assets.xcassets in Resources */,
 				1B664B0FC91E24C16E651731 /* LICENSE in Resources */,
 				15CE87579FC5A1AA278DBF46 /* logo.png in Resources */,
@@ -658,6 +696,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C008F48945BDF5AF8DAD1E9 /* ADBTests.swift in Sources */,
 				5CBC8A94D27F483F5A84912B /* ConnectionRetryTests.swift in Sources */,
 				1E115D9C9D0D798556F44213 /* DeviceRemovalTests.swift in Sources */,
 				4802750E26AC562B7D7AA29D /* MacCursorCaptureTests.swift in Sources */,
@@ -682,6 +721,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759B1F4F50BF678CCC9E5689 /* ADBSettingsView.swift in Sources */,
+				B35761E175FDD759A4AEA7C0 /* ADBConfiguration.swift in Sources */,
+				85ABF47D554B65F14752E6CE /* ADBResolver.swift in Sources */,
 				F5439C201732D172691EF0D4 /* ADB.swift in Sources */,
 				71D040A1BBBB3F57819C7803 /* AddDeviceView.swift in Sources */,
 				03F36AAFA80B7AFAA73DB614 /* AgentConnection.swift in Sources */,

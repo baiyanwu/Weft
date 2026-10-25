@@ -3,6 +3,7 @@ import AppKit
 
 struct HelpView: View {
     @ObservedObject var store: DeviceStore
+    @ObservedObject private var adb = ADBConfiguration.shared
     @State private var expanded: String? = "entry"
     private var adbInstalled: Bool { ADB.path != nil }
     private var summary: String {
@@ -63,11 +64,17 @@ struct HelpView: View {
             HStack(spacing: 18) {
                 statusItem("辅助功能", detail: store.permissionGranted ? "已授权" : "未授权", available: store.permissionGranted)
                 Divider().frame(height: 34)
-                statusItem("连接工具", detail: adbInstalled ? "已安装" : "未找到", available: adbInstalled)
+                statusItem("连接工具", detail: adb.selected?.source.rawValue ?? (adb.scanning ? "正在查找" : "不可用"), available: adbInstalled)
                 Divider().frame(height: 34)
                 statusItem("设备连接", detail: store.paused ? "已暂停" : "\(store.connectedCount) / \(store.profiles.count) 台在线", available: !store.paused && store.connectedCount > 0)
             }
-            if !store.discoveryError.isEmpty { Text(store.discoveryError).font(.caption).foregroundStyle(.orange).textSelection(.enabled) }
+            if !store.discoveryError.isEmpty && store.discoveryError != adb.error {
+                Text(store.discoveryError).font(.caption).foregroundStyle(.orange).textSelection(.enabled)
+            }
+            if !adb.error.isEmpty && !adb.scanning {
+                Text(adb.error).font(.caption).foregroundStyle(.orange).textSelection(.enabled)
+                helpLink("配置 ADB", icon: "chevron.right") { store.section = .general }
+            }
         }.padding(20).background(WeftStyle.wash, in: RoundedRectangle(cornerRadius: 13))
             .overlay(RoundedRectangle(cornerRadius: 13).stroke(WeftStyle.accent.opacity(0.19), lineWidth: 1))
     }

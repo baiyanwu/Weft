@@ -38,6 +38,8 @@ final class DeviceStore: ObservableObject {
     var lastControlledID: String?
     var heartbeatTimer: Timer?
     var motionTimer: Timer?
+    var adbObservation: AnyCancellable?
+    var adbErrorObservation: AnyCancellable?
     var beforeEntry: (() -> Void)?
     var onStateChange: (() -> Void)?
     var now: Double { ProcessInfo.processInfo.systemUptime }

@@ -11,11 +11,12 @@ extension DeviceStore {
         pairingBusy = true; pairingMessage = alreadyPaired ? "正在连接…" : "正在配对…"
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             do {
+                let adb = try ADBConfiguration.shared.requireExecutable().path
                 if !alreadyPaired {
-                    let output = try ADB.run(["pair", pairAddress], input: code + "\n", timeout: 20)
+                    let output = try ADB.run(at: adb, ["pair", pairAddress], input: code + "\n", timeout: 20)
                     guard output.lowercased().contains("successfully paired") else { throw BridgeError.message("配对未成功，请检查配对码和端口。") }
                 }
-                let output = try ADB.run(["connect", connectAddress], timeout: 10)
+                let output = try ADB.run(at: adb, ["connect", connectAddress], timeout: 10)
                 guard output.lowercased().contains("connected to") else { throw BridgeError.message("连接未成功，请确认无线调试页的连接端口。") }
                 DispatchQueue.main.async {
                     self?.pairingBusy = false; self?.pairingMessage = "连接成功，请在下方列表中添加设备。"; self?.discovery.scan()

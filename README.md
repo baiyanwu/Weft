@@ -15,7 +15,7 @@ Share one mouse between your Mac and multiple Android devices.
 - macOS 13 或更新版本，支持构建 Apple Silicon / Intel 通用包。
 - 当前实机验证集中于 Android 16；其他版本和厂商需要单独验证。
 
-运行时需单独安装 Android Platform Tools，并在 Android 上授权调试。首次运行，在“系统设置 → 隐私与安全性 → 辅助功能”中允许 weft。紧急返回 Mac：左侧 `Option` 或 `Esc`。
+应用内置 ADB，无需额外安装 Platform Tools。默认启动时自动扫描本机已安装的 ADB，未找到可用版本时使用内置版本；在“通用设置 → ADB 连接工具”中可指定文件、重新扫描或恢复自动查找。指定路径不可用时会提示，不自动切换。Android 上仍需授权调试；首次运行，在“系统设置 → 隐私与安全性 → 辅助功能”中允许 weft。紧急返回 Mac：左侧 `Option` 或 `Esc`。
 
 ## 使用 Xcode
 
@@ -26,6 +26,8 @@ Share one mouse between your Mac and multiple Android devices.
 macOS 应用、图标、资源、版本和签名由 Xcode 管理，不需要 Python 或 XcodeGen。Android 控制程序由工程中的 `Build Android agent` 步骤自动编译并嵌入应用；生成文件保存在 Xcode 的 DerivedData 中。
 
 Android SDK 默认位于 `~/Library/Android/sdk`。自定义位置可通过 `ANDROID_SDK_ROOT` 或 `ANDROID_HOME` 指定。JDK 使用 `JAVA_HOME`，未指定时通过 macOS `java_home` 查找。
+
+`Assets/adb` 是官方 macOS 通用 ADB 37.0.1；构建时复制至应用的 `Contents/Helpers` 并随应用签名。完整第三方声明和来源记录为 `Assets/ADB-NOTICE.txt` 与 `Assets/ADB-SOURCE.txt`。内置 ADB 只消除用户运行时的安装依赖，从源码构建 Android 控制程序仍需要上述 SDK 和 JDK。
 
 Debug 默认使用 ad-hoc 签名，便于从源码构建；Release 使用 Developer ID Application。个人签名设置可放入不提交的 `Config/Signing.local.xcconfig`，内容示例：
 
