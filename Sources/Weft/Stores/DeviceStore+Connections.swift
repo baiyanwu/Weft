@@ -6,6 +6,7 @@ extension DeviceStore {
     func start() {
         guard !preview else { return }
         stopped = false
+        scrcpy.scan()
         let adb = ADBConfiguration.shared
         observeADBConfiguration(adb)
         adb.scan()
@@ -29,10 +30,12 @@ extension DeviceStore {
         stopped = true; mouse.returnToMac("weft 已退出"); mouse.uninstallTap()
         heartbeatTimer?.invalidate(); motionTimer?.invalidate()
         adbObservation = nil; adbErrorObservation = nil
+        mirroring.stopAll()
         for session in sessions.values { session.connection.stop() }
     }
     func adbConfigurationChanged() {
         guard !stopped, !preview else { return }
+        mirroring.stopAll()
         mouse.returnToMac("ADB 配置已更改")
         requested.formUnion(profiles.filter {
             !suspended.contains($0.id) && ([.ready, .connecting].contains(status($0.id).phase) ||
@@ -93,6 +96,7 @@ extension DeviceStore {
     }
     func discovered(_ values: [DeviceEndpoint]) {
         guard !stopped else { return }
+        mirroring.reconcile(endpoints: values)
         if endpoints != values { endpoints = values }
         discoveryError = ""
         if firstImport, values.contains(where: \.usable) {
@@ -203,6 +207,7 @@ extension DeviceStore {
         Log.write("Device failed: \(id), attempt=\(session?.retry.attempts ?? 0)/\(ConnectionRetryState.maximumAttempts), retryStopped=\(session?.retry.isExhausted ?? false), \(message)")
     }
     func willSleep() {
+        mirroring.stopAll()
         sleeping = true; mouse.returnToMac("Mac 即将休眠")
         for session in sessions.values {
             session.connection.stop(); session.retry.cancel(); session.automaticAttempt = false

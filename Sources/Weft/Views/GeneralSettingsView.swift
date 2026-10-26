@@ -4,7 +4,7 @@ struct GeneralSettingsView: View {
     @ObservedObject var store: DeviceStore
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
-            PageHeading(title: "通用设置", subtitle: "统一管理启动、跨屏与快捷键", badge: "应用于这台 Mac")
+            PageHeading(title: "通用设置", subtitle: "统一管理启动、连接、投屏与快捷键", badge: "应用于这台 Mac")
             SettingsCard(title: "启动与运行") {
                 VStack(spacing: 12) {
                     PreferenceRow(title: "登录时启动", subtitle: "登录 Mac 后在菜单栏运行") {
@@ -18,6 +18,7 @@ struct GeneralSettingsView: View {
                 }
             }
             ADBSettingsView()
+            ScrcpySettingsView(configuration: store.scrcpy)
             SettingsCard(title: "跨屏切换") {
                 VStack(spacing: 12) {
                     PreferenceRow(title: "自动跨屏", subtitle: "按设备分别设置，开关互不影响") {

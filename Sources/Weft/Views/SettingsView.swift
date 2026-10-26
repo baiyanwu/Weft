@@ -60,7 +60,7 @@ struct SettingsView: View {
 
     private func layoutBoardHeight(in viewportHeight: CGFloat) -> CGFloat {
         // Reserve room for two device cards and the selected card's inline settings.
-        let listHeight = 58 + CGFloat(min(store.profiles.count, 2)) * 70 + (store.selected == nil ? 0 : 118)
+        let listHeight = 58 + CGFloat(min(store.profiles.count, 2)) * 70 + (store.selected == nil ? 0 : 150)
         let pageChrome: CGFloat = 48 + 58 + 28 + 104
         let noticeHeight: CGFloat = (store.permissionGranted ? 0 : 60) + (store.paused ? 60 : 0)
         return min(280, max(180, viewportHeight - listHeight - pageChrome - noticeHeight))

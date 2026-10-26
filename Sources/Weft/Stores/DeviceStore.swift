@@ -27,6 +27,8 @@ final class DeviceStore: ObservableObject {
     let discovery = DeviceDiscovery()
     let defaults: UserDefaults
     let preview: Bool
+    let scrcpy: ScrcpyConfiguration
+    let mirroring: ScrcpySessionManager
     var sessions: [String: DeviceSession] = [:]
     var suspended: Set<String> = []
     var requested: Set<String> = []
@@ -53,8 +55,10 @@ final class DeviceStore: ObservableObject {
         }
     }
 
-    init(defaults: UserDefaults = .standard, preview: Bool = false) {
+    init(defaults: UserDefaults = .standard, preview: Bool = false,
+         scrcpy: ScrcpyConfiguration = .shared, mirroring: ScrcpySessionManager = ScrcpySessionManager()) {
         self.defaults = defaults; self.preview = preview
+        self.scrcpy = scrcpy; self.mirroring = mirroring
         firstImport = defaults.data(forKey: "deviceProfiles.v2") == nil
         if !preview, let data = defaults.data(forKey: "deviceProfiles.v2"),
            let saved = try? JSONDecoder().decode([DeviceProfile].self, from: data) { profiles = saved }
@@ -124,6 +128,7 @@ final class DeviceStore: ObservableObject {
     }
     func remove(_ id: String) {
         guard profile(id) != nil else { return }
+        mirroring.forget(id)
         if mouse.activeDeviceID == id { mouse.returnToMac("设备已删除") }
         if let session = sessions.removeValue(forKey: id) {
             session.connection.onEvent = nil; session.connection.onFailure = nil

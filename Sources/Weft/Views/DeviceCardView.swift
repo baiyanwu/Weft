@@ -16,6 +16,8 @@ struct DeviceCardView: View {
                 Divider().padding(.horizontal, 14)
                 DeviceDetailView(store: store, device: device)
             }
+            DeviceMirroringStatusView(store: store, configuration: store.scrcpy, manager: store.mirroring,
+                                      deviceID: device.id, expanded: selected)
         }
         .background(Color.primary.opacity(0.025), in: RoundedRectangle(cornerRadius: 12))
         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -61,6 +63,8 @@ struct DeviceCardView: View {
                     if store.connectedCount > 0 { store.disconnectAll() } else { store.connectAll() }
                 }
             }
+
+            DeviceMirroringButton(store: store, configuration: store.scrcpy, manager: store.mirroring, deviceID: device.id)
 
             if selected {
                 Button(connected ? "断开连接" : "连接设备", action: toggleConnection)
