@@ -65,7 +65,7 @@ public final class BridgeAgent {
         ScreenMetrics metrics = ScreenMetrics.read();
         aligning = true;
         try {
-            reusableMouse = new ReusableMouse(input, this::sample);
+            reusableMouse = new ReusableMouse(input, this::sample, this::pointerActionFailed);
             reusableMouse.prepare(metrics.display);
             mouseId = reusableMouse.deviceId();
         } finally { aligning = false; }
@@ -99,6 +99,14 @@ public final class BridgeAgent {
                 if (requestedEpoch > controlEpoch) enterAbsolute(requestedEpoch,
                     Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), new int[] {
                         Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7])});
+                break;
+            case "pointer-action":
+                try {
+                    if (parts.length != 4) throw new IllegalArgumentException("pointer-action arguments");
+                    reusableMouse.performAction(Long.parseLong(parts[1]), Long.parseLong(parts[2]), parts[3]);
+                } catch (Exception error) {
+                    pointerActionFailed(controlEpoch, parts.length > 3 ? parts[3] : "unknown", error);
+                }
                 break;
             case "pointer":
                 if (parts.length != 8) throw new IllegalArgumentException("pointer arguments");
@@ -238,6 +246,11 @@ public final class BridgeAgent {
         Object info = type.getMethod("getDisplayInfo", int.class).invoke(manager, 0);
         if (info == null) throw new IllegalStateException("Display unavailable");
         return info;
+    }
+
+    private void pointerActionFailed(long epoch, String action, Exception error) {
+        emit("{\"type\":\"pointer-action-error\",\"epoch\":" + epoch + ",\"action\":\"" + escape(action)
+            + "\",\"detail\":\"" + escape(error.toString()) + "\"}");
     }
 
     private static synchronized void emit(String json) { System.out.println(json); System.out.flush(); }

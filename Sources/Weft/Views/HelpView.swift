@@ -34,7 +34,7 @@ struct HelpView: View {
                 }
                 Divider()
                 helpItem("connection", title: "连接中断或鼠标无响应", icon: "exclamationmark.triangle") {
-                    Text("先按左 Option 或 Esc 返回 Mac，再检查设备连接与调试授权。自动连接开启时，weft 会尝试重新连接；手动断开的设备需点击“连接设备”。")
+                    Text("先按 Control + Option + M 返回 Mac，再检查设备连接与调试授权。未共享键盘时也可按左 Option 或 Esc 返回。自动连接开启时，weft 会尝试重新连接；手动断开的设备需点击“连接设备”。")
                     helpLink("查看设备设置", icon: "chevron.right") { store.section = .devices }
                 }
             }.background(.background.opacity(0.4), in: RoundedRectangle(cornerRadius: 11))

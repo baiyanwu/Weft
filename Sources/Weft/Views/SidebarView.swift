@@ -9,6 +9,7 @@ struct SidebarView: View {
             Divider().padding(.horizontal, 20)
             navigation("设备与布局", icon: "display.2", section: .devices).padding(.top, 8)
             navigation("鼠标按键", icon: "computermouse", section: .mouseButtons).padding(.top, 4)
+            navigation("键盘映射", icon: "keyboard", section: .keyboard).padding(.top, 4)
             Spacer(minLength: 24)
             Divider().padding(.horizontal, 20)
             navigation("通用设置", icon: "gearshape", section: .general).padding(.top, 8)

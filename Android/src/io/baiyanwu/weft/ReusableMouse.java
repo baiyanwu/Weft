@@ -3,23 +3,38 @@ package io.baiyanwu.weft;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.view.InputDevice;
+import android.view.ViewConfiguration;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /** One resident absolute mouse. Only connection preparation waits for diagnostics. */
 final class ReusableMouse implements AutoCloseable {
     interface Feedback { BridgeAgent.Snapshot sample(int deviceId) throws Exception; }
+    interface ActionFailure { void report(long epoch, String action, Exception error); }
     private final Object lock = new Object();
     private final Feedback feedback;
     private final PointerVisibility visibility;
+    private final ActionFailure actionFailure;
+    private final ScheduledExecutorService actionQueue = Executors.newSingleThreadScheduledExecutor(task -> {
+        Thread worker = new Thread(task, "weft-pointer-actions");
+        worker.setDaemon(true);
+        return worker;
+    });
     private UhidDevice mouse;
     private AbsoluteMouseReport geometry;
     private int mouseId = -1, generation, x, y;
     private boolean closed, active, awaitingVisibility;
     private long epoch, sequence, enteredAt;
+    private long actionGeneration;
+    private int physicalButtons, mappedButtons;
     private final int[] submittedX = new int[256], submittedY = new int[256];
     private int submittedCount;
 
-    ReusableMouse(IBinder input, Feedback feedback) throws Exception {
+    ReusableMouse(IBinder input, Feedback feedback, ActionFailure actionFailure) throws Exception {
         this.feedback = feedback;
+        this.actionFailure = actionFailure;
         visibility = new PointerVisibility(input);
     }
 
@@ -72,6 +87,7 @@ final class ReusableMouse implements AutoCloseable {
             throw new IllegalStateException("Display changed since pointer preparation");
         synchronized (lock) {
             visibility.hideNow(mouseId);
+            cancelMappedLocked(); physicalButtons = 0;
             epoch = newEpoch; sequence = 0; submittedCount = 0;
             x = px; y = py;
             mouse.send(geometry.report(x, y, 0, 0, 0));
@@ -83,7 +99,8 @@ final class ReusableMouse implements AutoCloseable {
     void send(long inputEpoch, long inputSequence, int px, int py, int buttons, int wheel, int pan) throws Exception {
         synchronized (lock) {
             if (!active || inputEpoch != epoch || inputSequence <= sequence) return;
-            mouse.send(geometry.report(px, py, buttons, wheel, pan));
+            physicalButtons = buttons;
+            mouse.send(geometry.report(px, py, physicalButtons | mappedButtons, wheel, pan));
             x = px; y = py; sequence = inputSequence;
             if (awaitingVisibility) remember(x, y);
         }
@@ -92,11 +109,78 @@ final class ReusableMouse implements AutoCloseable {
     void release() throws Exception {
         synchronized (lock) {
             active = false; awaitingVisibility = false;
+            cancelMappedLocked(); physicalButtons = 0;
             if (mouse == null) return;
             mouse.send(geometry.report(x, y, 0, 0, 0));
             visibility.hideNow(mouseId);
         }
     }
+
+    // Mapped clicks bypass physical button mappings but preserve any physical drag.
+    // Timed releases use a separate worker, so cursor diagnostics cannot turn a click into a long press.
+    void performAction(long inputEpoch, long inputSequence, String action) throws Exception {
+        synchronized (lock) {
+            if (!active || inputEpoch != epoch || inputSequence <= sequence) return;
+            int button = 0, wheel = 0, pan = 0;
+            long hold = 35;
+            boolean twice = false;
+            switch (action) {
+            case "cancel":
+                sequence = inputSequence; cancelMappedLocked(); writeStateLocked(0, 0); return;
+            case "click": button = 1; break;
+            case "doubleClick": button = 1; twice = true; break;
+            case "longClick": button = 1; hold = ViewConfiguration.getLongPressTimeout() + 100L; break;
+            case "rightClick": button = 2; break;
+            case "middleClick": button = 4; break;
+            case "scrollUp": wheel = 1; break;
+            case "scrollDown": wheel = -1; break;
+            case "scrollLeft": pan = -1; break;
+            case "scrollRight": pan = 1; break;
+            default: throw new IllegalArgumentException("Unsupported pointer action: " + action);
+            }
+            sequence = inputSequence;
+            if (wheel != 0 || pan != 0) { writeStateLocked(wheel, pan); return; }
+            if (mappedButtons != 0 || (physicalButtons & button) != 0) return;
+            long token = ++actionGeneration;
+            mappedButtons = button;
+            try {
+                writeStateLocked(0, 0);
+                scheduleStep(inputEpoch, token, action, button, false, hold);
+                if (twice) {
+                    scheduleStep(inputEpoch, token, action, button, true, 140);
+                    scheduleStep(inputEpoch, token, action, button, false, 175);
+                }
+            } catch (Exception error) {
+                cancelMappedLocked();
+                try { writeStateLocked(0, 0); } catch (Exception ignored) { }
+                throw error;
+            }
+        }
+    }
+
+    private void scheduleStep(long visit, long token, String action, int button, boolean down, long delay) {
+        actionQueue.schedule(() -> {
+            Exception failure = null;
+            synchronized (lock) {
+                if (closed || !active || visit != epoch || token != actionGeneration) return;
+                // A physical press that started between double-click pulses owns its own release.
+                if (down && (physicalButtons & button) != 0) { cancelMappedLocked(); return; }
+                mappedButtons = down ? button : 0;
+                try { writeStateLocked(0, 0); }
+                catch (Exception error) {
+                    cancelMappedLocked(); failure = error;
+                    try { writeStateLocked(0, 0); } catch (Exception ignored) { }
+                }
+            }
+            if (failure != null) actionFailure.report(visit, action, failure);
+        }, delay, TimeUnit.MILLISECONDS);
+    }
+
+    private void writeStateLocked(int wheel, int pan) throws Exception {
+        mouse.send(geometry.report(x, y, physicalButtons | mappedButtons, wheel, pan));
+    }
+
+    private void cancelMappedLocked() { actionGeneration++; mappedButtons = 0; }
 
     boolean needsVisibilityConfirmation() { synchronized (lock) { return active && awaitingVisibility; } }
 
@@ -138,6 +222,7 @@ final class ReusableMouse implements AutoCloseable {
     void destroyDevices() {
         synchronized (lock) {
             active = false; awaitingVisibility = false;
+            cancelMappedLocked(); physicalButtons = 0;
             if (mouse != null) {
                 try { mouse.send(geometry.report(x, y, 0, 0, 0)); } catch (Exception ignored) { }
                 mouse.close(); mouse = null;
@@ -149,6 +234,7 @@ final class ReusableMouse implements AutoCloseable {
     @Override public void close() {
         destroyDevices();
         synchronized (lock) { closed = true; }
+        actionQueue.shutdownNow();
         visibility.close();
     }
 }

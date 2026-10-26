@@ -16,6 +16,15 @@ extension AgentTransport {
 
 /// One independent channel per physical Android device. Retired callbacks are fenced.
 final class AgentConnection: AgentTransport {
+    enum Role {
+        case pointer, keyboard
+        var remotePath: String {
+            self == .pointer ? "/data/local/tmp/weft-agent-v2.dex" : "/data/local/tmp/weft-keyboard-v1.dex"
+        }
+        var mainClass: String { self == .pointer ? "io.baiyanwu.weft.BridgeAgent" : "io.baiyanwu.weft.KeyboardAgent" }
+        var label: String { self == .pointer ? "agent" : "keyboard-agent" }
+        var disconnected: String { self == .pointer ? "设备连接已断开" : "键盘连接已断开，鼠标可继续使用" }
+    }
     var onEvent: (([String: Any]) -> Void)?
     var onFailure: ((String) -> Void)?
     private let queue = DispatchQueue(label: "weft.transport", qos: .userInteractive)
@@ -25,12 +34,13 @@ final class AgentConnection: AgentTransport {
     private var stdin: FileHandle?
     private var output = Data()
     private let testWriter: ((String) -> Void)?
+    private let role: Role
     private var pendingPointer: PointerFrame?
     private var motionTask = 0
     private var motionScheduled = false
     private var lastPointerButtons = 0, lastPointerEpoch = -1
 
-    init(writer: ((String) -> Void)? = nil) { testWriter = writer }
+    init(role: Role = .pointer, writer: ((String) -> Void)? = nil) { self.role = role; testWriter = writer }
 
     private func advance() -> Int {
         lock.lock(); defer { lock.unlock() }
@@ -54,11 +64,12 @@ final class AgentConnection: AgentTransport {
                 guard let dex = Bundle.main.url(forResource: "weft-agent", withExtension: "dex") else {
                     throw BridgeError.message("未找到 Android 控制程序")
                 }
-                _ = try ADB.run(at: adb, ["-s", serial, "push", dex.path, "/data/local/tmp/weft-agent-v2.dex"], timeout: 10)
+                let role = self.role
+                _ = try ADB.run(at: adb, ["-s", serial, "push", dex.path, role.remotePath], timeout: 10)
                 guard self.current() == token else { return }
                 let child = Process(), input = Pipe(), outputPipe = Pipe(), errors = Pipe()
                 child.executableURL = URL(fileURLWithPath: adb)
-                child.arguments = ["-s", serial, "shell", "-T", "CLASSPATH=/data/local/tmp/weft-agent-v2.dex", "app_process", "/", "io.baiyanwu.weft.BridgeAgent"]
+                child.arguments = ["-s", serial, "shell", "-T", "CLASSPATH=\(role.remotePath)", "app_process", "/", role.mainClass]
                 child.standardInput = input; child.standardOutput = outputPipe; child.standardError = errors
                 self.output.removeAll(keepingCapacity: true)
                 outputPipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
@@ -69,9 +80,9 @@ final class AgentConnection: AgentTransport {
                 errors.fileHandleForReading.readabilityHandler = { handle in
                     let data = handle.availableData
                     if data.isEmpty { handle.readabilityHandler = nil; return }
-                    if let message = String(data: data, encoding: .utf8) { Log.write("agent[\(serial)]: \(message.trimmingCharacters(in: .whitespacesAndNewlines))") }
+                    if let message = String(data: data, encoding: .utf8) { Log.write("\(role.label)[\(serial)]: \(message.trimmingCharacters(in: .whitespacesAndNewlines))") }
                 }
-                child.terminationHandler = { [weak self] _ in self?.deliver(token) { $0.onFailure?("设备连接已断开") } }
+                child.terminationHandler = { [weak self] _ in self?.deliver(token) { $0.onFailure?(role.disconnected) } }
                 try child.run(); self.process = child; self.stdin = input.fileHandleForWriting
             } catch { self.deliver(token) { $0.onFailure?(error.localizedDescription) } }
         }

@@ -33,6 +33,7 @@ if [[ "${WEFT_ANDROID_TESTS:-NO}" == YES ]]; then
   java -cp "$BUILD_DIR/classes:$BUILD_DIR/tests" io.baiyanwu.weft.ParserTest
   java -cp "$BUILD_DIR/classes:$BUILD_DIR/tests" io.baiyanwu.weft.AbsoluteMouseReportTest
   java -cp "$BUILD_DIR/classes:$BUILD_DIR/tests" io.baiyanwu.weft.MouseButtonMapperTest
+  java -cp "$BUILD_DIR/classes:$BUILD_DIR/tests" io.baiyanwu.weft.KeyboardReportTest
 fi
 classes=()
 while IFS= read -r -d '' source; do classes+=("$source"); done < <(find "$BUILD_DIR/classes" -name '*.class' -print0)

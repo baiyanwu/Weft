@@ -14,7 +14,7 @@ struct SettingsView: View {
                             if !store.permissionGranted {
                                 HStack(spacing: 10) {
                                     Image(systemName: "hand.raised.fill").foregroundStyle(.orange)
-                                    Text("允许辅助功能后，即可在设备间切换鼠标。").font(.callout)
+                                    Text("允许辅助功能后，即可在设备间共享鼠标和键盘。").font(.callout)
                                     Spacer()
                                     Button("前往授权") { store.requestPermission() }.buttonStyle(WeftButtonStyle())
                                 }.padding(12).background(.orange.opacity(0.08), in: RoundedRectangle(cornerRadius: 10))
@@ -22,6 +22,7 @@ struct SettingsView: View {
                             switch store.section {
                             case .devices: devicesContent(viewportHeight: geometry.size.height)
                             case .mouseButtons: MouseButtonMappingView(store: store)
+                            case .keyboard: KeyboardMappingView(store: store)
                             case .general: GeneralSettingsView(store: store)
                             case .help: HelpView(store: store)
                             }

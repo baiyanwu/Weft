@@ -18,8 +18,10 @@ final class MouseController {
     var onEnter: ((String, CGPoint, Int) -> Void)?
     var onRelease: ((String, Int, String) -> Void)?
     var onInput: ((String, PointerFrame) -> Void)?
+    var onPointerAction: ((String, Int, Int, KeyboardMappingAction?) -> Void)?
     var onShortcut: (() -> Void)?
     var onChange: (() -> Void)?
+    let keyboard = KeyboardController()
     private(set) var mode: Mode = .local
     private(set) var hasTap = false
     private(set) var activePortal: MousePortal?
@@ -53,7 +55,7 @@ final class MouseController {
         guard AXIsProcessTrusted() else { return false }
         let types: [CGEventType] = [.mouseMoved, .leftMouseDown, .leftMouseUp, .leftMouseDragged,
             .rightMouseDown, .rightMouseUp, .rightMouseDragged, .otherMouseDown, .otherMouseUp,
-            .otherMouseDragged, .scrollWheel, .keyDown, .flagsChanged]
+            .otherMouseDragged, .scrollWheel, .keyDown, .keyUp, .flagsChanged]
         let mask = types.reduce(CGEventMask(0)) { $0 | (CGEventMask(1) << $1.rawValue) }
         let opaque = Unmanaged.passUnretained(self).toOpaque()
         guard let tap = CGEvent.tapCreate(tap: .cghidEventTap, place: .headInsertEventTap,
@@ -85,18 +87,28 @@ final class MouseController {
             return Unmanaged.passUnretained(event)
         }
         let key = event.getIntegerValueField(.keyboardEventKeycode)
+        if event.getIntegerValueField(.eventSourceUnixProcessID) == Int64(getpid()) { return Unmanaged.passUnretained(event) }
+        // Let the focused settings recorder handle even reserved chords for validation.
+        if mode == .local, let recorder = NSApp.keyWindow?.firstResponder as? ShortcutCaptureView, recorder.recording,
+           type == .keyDown || type == .flagsChanged {
+            return Unmanaged.passUnretained(event)
+        }
         if type == .keyDown {
             if key == 46 && event.flags.contains([.maskControl, .maskAlternate]) {
+                keyboard.consumeShortcut(46)
                 if event.getIntegerValueField(.keyboardEventAutorepeat) != 0 { return nil }
                 if mode == .local { onShortcut?() } else { returnToMac("快捷键返回 Mac") }
                 return nil
             }
-            if mode != .local && key == 53 { returnToMac("Esc 返回 Mac"); return nil }
+            if mode != .local && !keyboard.sharing && key == 53 {
+                keyboard.consumeShortcut(53); returnToMac("Esc 返回 Mac"); return nil
+            }
         }
-        if type == .flagsChanged && mode != .local && key == 58 && event.flags.contains(.maskAlternate) && !event.flags.contains(.maskControl) {
+        if type == .flagsChanged && mode != .local && !keyboard.sharing && key == 58 && event.flags.contains(.maskAlternate) && !event.flags.contains(.maskControl) {
             returnToMac("Option 返回 Mac")
             return nil
         }
+        if keyboard.handle(type, event) { return nil }
         let mouseTypes: Set<CGEventType> = [.mouseMoved, .leftMouseDragged, .rightMouseDragged, .otherMouseDragged,
             .leftMouseDown, .leftMouseUp, .rightMouseDown, .rightMouseUp, .otherMouseDown, .otherMouseUp, .scrollWheel]
         guard mouseTypes.contains(type) else { return Unmanaged.passUnretained(event) }
@@ -233,6 +245,7 @@ final class MouseController {
         let portal = activePortal, epoch = lease?.epoch ?? sequence
         let fraction = path?.fraction ?? entryFraction
         suppressedReleases |= buttons
+        keyboard.end()
         mode = .local; buttons = 0
         motionDirty = false; scrollX = 0; scrollY = 0
         let frame = activeBounds.isEmpty ? bounds : activeBounds
@@ -257,6 +270,21 @@ final class MouseController {
         inputSequence += 1
         onInput?(lease.deviceID, PointerFrame(epoch: lease.epoch, sequence: inputSequence,
             position: path.position, buttons: buttons, wheel: v, pan: h))
+    }
+
+    func performKeyboardPointerAction(_ action: KeyboardMappingAction) {
+        guard action.isPointerAction else { return }
+        sendKeyboardPointerAction(action)
+    }
+
+    func cancelKeyboardPointerActions() { sendKeyboardPointerAction(nil) }
+
+    private func sendKeyboardPointerAction(_ action: KeyboardMappingAction?) {
+        guard mode == .remote, let lease else { return }
+        // Position and physical buttons must reach Android before the mapped operation.
+        flush(force: true)
+        inputSequence += 1
+        onPointerAction?(lease.deviceID, lease.epoch, inputSequence, action)
     }
 
     private func number(_ data: [String: Any], _ key: String) -> Double { (data[key] as? NSNumber)?.doubleValue ?? 0 }

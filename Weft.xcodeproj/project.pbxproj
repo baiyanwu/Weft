@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0DEB08D0000000000000015 /* KeyboardSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000014 /* KeyboardSession.swift */; };
+		C0DEB08D0000000000000017 /* DeviceStore+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000016 /* DeviceStore+Keyboard.swift */; };
+		C0DEB08D0000000000000012 /* KeyboardInputMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000011 /* KeyboardInputMapperTests.swift */; };
+		C0DEB08D000000000000000C /* KeyboardInputMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D000000000000000B /* KeyboardInputMapper.swift */; };
+		C0DEB08D000000000000000E /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D000000000000000D /* KeyboardController.swift */; };
+		C0DEB08D0000000000000002 /* KeyboardMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000001 /* KeyboardMapping.swift */; };
+		C0DEB08D0000000000000004 /* KeyboardMappingPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000003 /* KeyboardMappingPresentation.swift */; };
+		C0DEB08D0000000000000006 /* KeyboardShortcutField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000005 /* KeyboardShortcutField.swift */; };
+		C0DEB08D0000000000000008 /* KeyboardActionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000007 /* KeyboardActionPicker.swift */; };
+		C0DEB08D000000000000000A /* KeyboardMappingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DEB08D0000000000000009 /* KeyboardMappingView.swift */; };
 		6FEB9F43AFE391A2FF6A1CC4 /* ScrcpySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1929BFD31DEA29E243945667 /* ScrcpySessionTests.swift */; };
 		A2FA29518CE1B06499A32848 /* ScrcpyConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C894D80CA0AC78CE45BDC4 /* ScrcpyConfigurationTests.swift */; };
 		9D5FD08F36C0D2087EF9C86B /* DeviceMirroringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346A1650E54B3BCD80D9E2D0 /* DeviceMirroringView.swift */; };
@@ -132,6 +142,22 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C0DEB08D0000000000000014 /* KeyboardSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardSession.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000016 /* DeviceStore+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceStore+Keyboard.swift"; sourceTree = "<group>"; };
+		C0DEB08D0000000000000018 /* KeyboardAgent.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = KeyboardAgent.java; sourceTree = "<group>"; };
+		C0DEB08D0000000000000019 /* KeyboardRegistry.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = KeyboardRegistry.java; sourceTree = "<group>"; };
+		C0DEB08D000000000000001A /* DevicePanelActions.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = DevicePanelActions.java; sourceTree = "<group>"; };
+		C0DEB08D0000000000000011 /* KeyboardInputMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInputMapperTests.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000013 /* KeyboardReportTest.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = KeyboardReportTest.java; sourceTree = "<group>"; };
+		C0DEB08D000000000000000B /* KeyboardInputMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInputMapper.swift; sourceTree = "<group>"; };
+		C0DEB08D000000000000000D /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
+		C0DEB08D000000000000000F /* KeyboardReport.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = KeyboardReport.java; sourceTree = "<group>"; };
+		C0DEB08D0000000000000010 /* DeviceKeyboard.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; path = DeviceKeyboard.java; sourceTree = "<group>"; };
+		C0DEB08D0000000000000001 /* KeyboardMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMapping.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000003 /* KeyboardMappingPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMappingPresentation.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000005 /* KeyboardShortcutField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutField.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000007 /* KeyboardActionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardActionPicker.swift; sourceTree = "<group>"; };
+		C0DEB08D0000000000000009 /* KeyboardMappingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardMappingView.swift; sourceTree = "<group>"; };
 		1929BFD31DEA29E243945667 /* ScrcpySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrcpySessionTests.swift"; sourceTree = "<group>"; };
 		B4C894D80CA0AC78CE45BDC4 /* ScrcpyConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScrcpyConfigurationTests.swift"; sourceTree = "<group>"; };
 		346A1650E54B3BCD80D9E2D0 /* DeviceMirroringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeviceMirroringView.swift"; sourceTree = "<group>"; };
@@ -312,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				4552F52F60CB2EFF9226804A /* DeviceStore+Mirroring.swift */,
+				C0DEB08D0000000000000016 /* DeviceStore+Keyboard.swift */,
 				CAF3ED38A8C4A168579EC397 /* DeviceStore.swift */,
 				E6E351435F6922CFB9CF7DD8 /* DeviceStore+Arrangement.swift */,
 				127302311C042A1BFEC5C99D /* DeviceStore+Connections.swift */,
@@ -331,6 +358,8 @@
 		4C29D92BED9016178B456507 /* WeftCore */ = {
 			isa = PBXGroup;
 			children = (
+				C0DEB08D000000000000000B /* KeyboardInputMapper.swift */,
+				C0DEB08D0000000000000001 /* KeyboardMapping.swift */,
 				6D4F158B07364E88DB7903F4 /* ConnectionRetryState.swift */,
 				CAA119A721EBE87D9B3353F2 /* DeviceProfile.swift */,
 				C0DEB0770000000000000001 /* MouseButtonMapping.swift */,
@@ -376,6 +405,7 @@
 				AE98D7678CD86231D116E3B4 /* MacCursorCapture.swift */,
 				C9AEC4D64C689790ADB1F017 /* main.swift */,
 				E63E9F2EE07F1E35584D5E5E /* MouseController.swift */,
+				C0DEB08D000000000000000D /* KeyboardController.swift */,
 				93314F656918580E89270507 /* Models */,
 				A21AA2DCCD25F8577E2DFBB1 /* Services */,
 				2438D5C122DEF31ED7D3C983 /* Stores */,
@@ -399,6 +429,7 @@
 			isa = PBXGroup;
 			children = (
 				E82D374ABF307FBFEF671921 /* DeviceState.swift */,
+				C0DEB08D0000000000000014 /* KeyboardSession.swift */,
 				DFD80CB322FA6342C7FE568B /* WirelessAddressInput.swift */,
 			);
 			path = Models;
@@ -422,6 +453,7 @@
 		B2C12ED1E1134398418723DA /* WeftCoreTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0DEB08D0000000000000011 /* KeyboardInputMapperTests.swift */,
 				4B11EBCDF0C0FA8765F9D4A9 /* DeviceLayoutTests.swift */,
 				690AEE97F6A1E2371C14FCAE /* GeometryTests.swift */,
 				C0DEB0770000000000000003 /* MouseButtonMappingTests.swift */,
@@ -434,6 +466,12 @@
 		BE3DC4FDF2BEA09080B64246 /* weft */ = {
 			isa = PBXGroup;
 			children = (
+				C0DEB08D0000000000000018 /* KeyboardAgent.java */,
+				C0DEB08D0000000000000019 /* KeyboardRegistry.java */,
+				C0DEB08D000000000000001A /* DevicePanelActions.java */,
+				C0DEB08D0000000000000013 /* KeyboardReportTest.java */,
+				C0DEB08D000000000000000F /* KeyboardReport.java */,
+				C0DEB08D0000000000000010 /* DeviceKeyboard.java */,
 				5495EE3A1AD1B3EB67214DA4 /* AbsoluteMouseReport.java */,
 				8558ED695075F4DD976428C0 /* AbsoluteMouseReportTest.java */,
 				57161727A4FC673F10857CF5 /* BridgeAgent.java */,
@@ -478,6 +516,10 @@
 		D0650E2833254268F76AA1B9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C0DEB08D0000000000000003 /* KeyboardMappingPresentation.swift */,
+				C0DEB08D0000000000000005 /* KeyboardShortcutField.swift */,
+				C0DEB08D0000000000000007 /* KeyboardActionPicker.swift */,
+				C0DEB08D0000000000000009 /* KeyboardMappingView.swift */,
 				005351AEE3041E9D188911C9 /* ScrcpySettingsView.swift */,
 				346A1650E54B3BCD80D9E2D0 /* DeviceMirroringView.swift */,
 				CBABF65575F80088A1E2BB77 /* ADBSettingsView.swift */,
@@ -744,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DEB08D0000000000000012 /* KeyboardInputMapperTests.swift in Sources */,
 				690545DE3FA09571532B0553 /* DeviceLayoutTests.swift in Sources */,
 				593C4FDF08DAD663CA6A5DD5 /* GeometryTests.swift in Sources */,
 				C0DEB0770000000000000004 /* MouseButtonMappingTests.swift in Sources */,
@@ -772,6 +815,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DEB08D000000000000000C /* KeyboardInputMapper.swift in Sources */,
+				C0DEB08D0000000000000002 /* KeyboardMapping.swift in Sources */,
 				9D468C8C3593C75FAAD3FC90 /* ConnectionRetryState.swift in Sources */,
 				4AA2D6EAC4C40E3F859CF133 /* DeviceProfile.swift in Sources */,
 				C0DEB0770000000000000002 /* MouseButtonMapping.swift in Sources */,
@@ -785,6 +830,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DEB08D0000000000000015 /* KeyboardSession.swift in Sources */,
+				C0DEB08D0000000000000017 /* DeviceStore+Keyboard.swift in Sources */,
+				C0DEB08D000000000000000E /* KeyboardController.swift in Sources */,
+				C0DEB08D0000000000000004 /* KeyboardMappingPresentation.swift in Sources */,
+				C0DEB08D0000000000000006 /* KeyboardShortcutField.swift in Sources */,
+				C0DEB08D0000000000000008 /* KeyboardActionPicker.swift in Sources */,
+				C0DEB08D000000000000000A /* KeyboardMappingView.swift in Sources */,
 				140E62412227F5F2915B3015 /* ScrcpyResolver.swift in Sources */,
 				90455F31AB9B1E11D5B80F38 /* ScrcpyConfiguration.swift in Sources */,
 				976F8CDC5068B5EF7ABD908A /* ScrcpyProcess.swift in Sources */,

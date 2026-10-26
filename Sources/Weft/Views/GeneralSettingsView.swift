@@ -35,7 +35,7 @@ struct GeneralSettingsView: View {
                         HStack(spacing: 6) { KeyCap(title: "⌃"); KeyCap(title: "⌥"); KeyCap(title: "M") }
                     }
                     Divider()
-                    PreferenceRow(title: "立即返回 Mac", subtitle: "也可从设备靠近 Mac 的边缘返回") {
+                    PreferenceRow(title: "备用返回方式", subtitle: "仅在未开启键盘共享时使用；开启后请按 ⌃⌥M 返回") {
                         HStack(spacing: 8) { KeyCap(title: "左 ⌥"); Text("或").font(.caption).foregroundStyle(.secondary); KeyCap(title: "Esc") }
                     }
                     Divider()
@@ -49,7 +49,7 @@ struct GeneralSettingsView: View {
                     Image(systemName: "checkmark.shield").font(.system(size: 25))
                     VStack(alignment: .leading, spacing: 4) {
                         Text("辅助功能权限").fontWeight(.medium)
-                        Text("用于捕获鼠标并在设备间切换").font(.caption).foregroundStyle(.secondary)
+                        Text("用于捕获鼠标、键盘并在设备间切换").font(.caption).foregroundStyle(.secondary)
                     }
                     Spacer()
                     Label(store.permissionGranted ? "已授权" : "未授权", systemImage: store.permissionGranted ? "checkmark.circle.fill" : "exclamationmark.circle")

@@ -28,6 +28,7 @@ extension DeviceStore {
     }
     func stop() {
         stopped = true; mouse.returnToMac("weft 已退出"); mouse.uninstallTap()
+        for id in Array(keyboardSessions.keys) { closeKeyboardConnection(id) }
         heartbeatTimer?.invalidate(); motionTimer?.invalidate()
         adbObservation = nil; adbErrorObservation = nil
         mirroring.stopAll()
@@ -37,6 +38,7 @@ extension DeviceStore {
         guard !stopped, !preview else { return }
         mirroring.stopAll()
         mouse.returnToMac("ADB 配置已更改")
+        for id in Array(keyboardSessions.keys) { closeKeyboardConnection(id) }
         requested.formUnion(profiles.filter {
             !suspended.contains($0.id) && ([.ready, .connecting].contains(status($0.id).phase) ||
                 sessions[$0.id]?.retry.isActive == true)
@@ -52,6 +54,17 @@ extension DeviceStore {
         refreshPortals(); onStateChange?()
     }
     func wireMouse() {
+        mouse.keyboard.onFrame = { [weak self] frame, epoch, sequence in
+            guard let self, let id = self.mouse.activeDeviceID, let session = self.keyboardSessions[id],
+                  session.controlEpoch != nil, session.epoch == epoch else { return }
+            var keyboardFrame = frame
+            if frame.action?.isPointerAction == true { keyboardFrame.action = nil }
+            session.connection.send(keyboardFrame.command(epoch: epoch, sequence: sequence))
+            if let action = frame.action, action.isPointerAction { self.mouse.performKeyboardPointerAction(action) }
+        }
+        mouse.onPointerAction = { [weak self] id, epoch, sequence, action in
+            self?.sessions[id]?.connection.send("pointer-action \(epoch) \(sequence) \(action?.rawValue ?? "cancel")")
+        }
         mouse.onEnter = { [weak self] id, position, epoch in
             guard let self, let device = self.profile(id), let seam = self.mouse.activePortal?.seam else { return }
             let geometry = seam.remote
@@ -59,6 +72,7 @@ extension DeviceStore {
             self.sessions[id]?.connection.send("enter-abs \(epoch) 0 \(Int(position.x.rounded())) \(Int(position.y.rounded())) \(geometry.width) \(geometry.height) \(geometry.rotation)")
         }
         mouse.onRelease = { [weak self] id, epoch, reason in
+            self?.stopKeyboardControl(id)
             self?.sessions[id]?.connection.send("release \(epoch)"); self?.notice = reason
         }
         mouse.onInput = { [weak self] id, frame in
@@ -93,6 +107,7 @@ extension DeviceStore {
             }
             reconcile()
         }
+        tickKeyboards()
     }
     func discovered(_ values: [DeviceEndpoint]) {
         guard !stopped else { return }
@@ -175,6 +190,10 @@ extension DeviceStore {
                 return
             }
             mouse.didEnter(event, from: id); lastControlledID = id
+            if mouse.mode == .remote, mouse.activeDeviceID == id { startKeyboardControl(id) }
+            if !status(id).message.isEmpty {
+                var current = status(id); current.message = ""; setStatus(id, current)
+            }
             if event["reused"] as? Bool == true {
                 Log.write("Reused device pointer: \(id), mouse=\(event["mouseId"] ?? "?"), generation=\(event["generation"] ?? "?"), entry=\(event["entryMs"] ?? "?")ms")
             }
@@ -187,7 +206,16 @@ extension DeviceStore {
                 mouse.receiveCursor(dimensions, from: id)
             }
         case "entryFailed":
-            if mouse.accepts(event, from: id) { mouse.returnToMac(event["message"] as? String ?? "设备定位失败") }
+            if mouse.accepts(event, from: id) {
+                let message = event["message"] as? String ?? "设备定位失败"
+                mouse.returnToMac(message)
+                var current = status(id); current.message = message; setStatus(id, current)
+                if let detail = event["detail"] as? String { Log.write("Input entry failed: \(id), \(detail)") }
+            }
+        case "pointer-action-error":
+            guard mouse.accepts(event, from: id) else { return }
+            notice = "点击或滚动操作未能执行"
+            Log.write("Pointer action failed: \(id), \(event)")
         case "error": failed(id, event["message"] as? String ?? "设备控制失败")
         default: break
         }
@@ -209,6 +237,7 @@ extension DeviceStore {
     func willSleep() {
         mirroring.stopAll()
         sleeping = true; mouse.returnToMac("Mac 即将休眠")
+        for id in Array(keyboardSessions.keys) { closeKeyboardConnection(id) }
         for session in sessions.values {
             session.connection.stop(); session.retry.cancel(); session.automaticAttempt = false
         }
