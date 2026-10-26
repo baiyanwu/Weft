@@ -30,14 +30,6 @@ struct SettingsView: View {
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                     .background(.background.opacity(0.25))
             }
-            Divider()
-            HStack(spacing: 9) {
-                Image(systemName: "checkmark")
-                Text(store.section == .mouseButtons ? "按键配置自动保存，仅在控制对应设备时生效" : "更改自动保存")
-                Spacer()
-                if store.paused { Text("全部连接已暂停").foregroundStyle(.orange) }
-                Text("仅共享鼠标")
-            }.font(.caption).foregroundStyle(.secondary).padding(.horizontal, 24).frame(height: 38)
         }
         .background(.regularMaterial).tint(WeftStyle.accent)
         .frame(minWidth: 960, minHeight: 700)
