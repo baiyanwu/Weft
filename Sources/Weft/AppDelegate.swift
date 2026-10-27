@@ -23,7 +23,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate, NSPo
         store = DeviceStore()
         buildMainMenu()
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        let mark = WeftStyle.logo.copy() as! NSImage; mark.size = NSSize(width: 22, height: 22)
+        let mark = NSImage(named: "MenuBarIcon")
+            ?? NSImage(systemSymbolName: "computermouse", accessibilityDescription: "weft")
+        mark?.size = NSSize(width: 16, height: 16)
+        mark?.isTemplate = true
+        mark?.accessibilityDescription = "weft"
         statusItem.button?.image = mark
         statusItem.button?.target = self; statusItem.button?.action = #selector(togglePopover)
         statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
