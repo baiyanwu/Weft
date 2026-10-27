@@ -43,7 +43,7 @@ struct ScreenPlacement: Identifiable, Equatable {
     let displayID: UInt32
     let seam: ScreenSeam
 }
-enum SettingsSection { case devices, general, help }
+enum SettingsSection { case devices, mouseButtons, keyboard, general, help }
 final class DeviceSession {
     let connection: AgentTransport
     var endpoint = ""

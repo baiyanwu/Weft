@@ -27,7 +27,7 @@ class Client:
         threading.Thread(target=self.ping, daemon=True).start()
         try:
             self.ready = self.wait('ready')
-            assert self.ready['protocol'] == 3 and self.ready['pointerMode'] == 'absolute'
+            assert self.ready['protocol'] == 4 and self.ready['pointerMode'] == 'absolute'
         except Exception:
             self.close()
             raise

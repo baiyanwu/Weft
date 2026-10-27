@@ -83,7 +83,7 @@ final class DeviceRemovalTests: XCTestCase {
         store.statuses["phone"] = DeviceStatus(phase: .connecting)
 
         store.remove("phone")
-        store.receive("phone", ["type": "ready", "protocol": 3, "pointerMode": "absolute"])
+        store.receive("phone", ["type": "ready", "protocol": 4, "pointerMode": "absolute"])
         store.failed("phone", "late connection failure")
 
         XCTAssertTrue(store.profiles.isEmpty)

@@ -6,6 +6,7 @@ import WeftCore
 final class DeviceStore: ObservableObject {
     @Published var profiles: [DeviceProfile] = []
     @Published var statuses: [String: DeviceStatus] = [:]
+    @Published var keyboardStatuses: [String: KeyboardStatus] = [:]
     @Published var endpoints: [DeviceEndpoint] = []
     @Published var screens: [MacScreen] = []
     @Published var selectedID: String?
@@ -27,7 +28,10 @@ final class DeviceStore: ObservableObject {
     let discovery = DeviceDiscovery()
     let defaults: UserDefaults
     let preview: Bool
+    let scrcpy: ScrcpyConfiguration
+    let mirroring: ScrcpySessionManager
     var sessions: [String: DeviceSession] = [:]
+    var keyboardSessions: [String: KeyboardSession] = [:]
     var suspended: Set<String> = []
     var requested: Set<String> = []
     var firstImport: Bool
@@ -53,8 +57,10 @@ final class DeviceStore: ObservableObject {
         }
     }
 
-    init(defaults: UserDefaults = .standard, preview: Bool = false) {
+    init(defaults: UserDefaults = .standard, preview: Bool = false,
+         scrcpy: ScrcpyConfiguration = .shared, mirroring: ScrcpySessionManager = ScrcpySessionManager()) {
         self.defaults = defaults; self.preview = preview
+        self.scrcpy = scrcpy; self.mirroring = mirroring
         firstImport = defaults.data(forKey: "deviceProfiles.v2") == nil
         if !preview, let data = defaults.data(forKey: "deviceProfiles.v2"),
            let saved = try? JSONDecoder().decode([DeviceProfile].self, from: data) { profiles = saved }
@@ -80,6 +86,18 @@ final class DeviceStore: ObservableObject {
     func save() {
         guard !preview, let data = try? JSONEncoder().encode(profiles) else { return }
         defaults.set(data, forKey: "deviceProfiles.v2")
+    }
+    /// Reconfigure only the keyboard; the mouse control lease remains untouched.
+    func updateKeyboardMapping(_ id: String, _ body: (inout KeyboardMapping) -> Void) {
+        guard let index = profiles.firstIndex(where: { $0.id == id }) else { return }
+        var mapping = profiles[index].keyboardMapping
+        body(&mapping)
+        guard mapping != profiles[index].keyboardMapping else { return }
+        if mouse.activeDeviceID == id { stopKeyboardControl(id) }
+        profiles[index].keyboardMapping = mapping
+        save()
+        if !mapping.enabled { closeKeyboardConnection(id) }
+        else if mouse.activeDeviceID == id { startKeyboardControl(id) }
     }
     func update(_ id: String, _ body: (inout DeviceProfile) -> Void) {
         guard let index = profiles.firstIndex(where: { $0.id == id }) else { return }
@@ -124,6 +142,8 @@ final class DeviceStore: ObservableObject {
     }
     func remove(_ id: String) {
         guard profile(id) != nil else { return }
+        closeKeyboardConnection(id)
+        mirroring.forget(id)
         if mouse.activeDeviceID == id { mouse.returnToMac("设备已删除") }
         if let session = sessions.removeValue(forKey: id) {
             session.connection.onEvent = nil; session.connection.onFailure = nil
@@ -172,6 +192,7 @@ final class DeviceStore: ObservableObject {
     }
     func disconnect(_ id: String) {
         suspended.insert(id); requested.remove(id)
+        closeKeyboardConnection(id)
         if mouse.activeDeviceID == id { mouse.returnToMac("设备连接已暂停") }
         sessions[id]?.connection.stop()
         sessions[id]?.automaticAttempt = false
@@ -185,6 +206,7 @@ final class DeviceStore: ObservableObject {
         paused.toggle()
         if paused {
             mouse.returnToMac("已暂停全部连接")
+            for id in Array(keyboardSessions.keys) { closeKeyboardConnection(id) }
             for profile in profiles {
                 if status(profile.id).phase == .ready { requested.insert(profile.id) }
                 sessions[profile.id]?.connection.stop()

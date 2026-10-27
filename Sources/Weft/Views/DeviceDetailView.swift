@@ -4,65 +4,43 @@ import WeftCore
 struct DeviceDetailView: View {
     @ObservedObject var store: DeviceStore
     let device: DeviceProfile
-    private var connected: Bool { [.ready, .connecting].contains(store.status(device.id).phase) }
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            Divider()
-            HStack(alignment: .top, spacing: 15) {
-                DeviceGlyph(kind: device.kind, size: 31).padding(.top, 2)
-                VStack(alignment: .leading, spacing: 7) {
-                    HStack(spacing: 10) {
-                        Text(device.name).font(.system(size: 19, weight: .semibold)).lineLimit(1)
-                        StatusDot(phase: store.status(device.id).phase)
-                        Text(store.status(device.id).label).font(.callout).foregroundStyle(.secondary).lineLimit(1)
-                    }
-                    Text("以下设置仅对这台设备生效").font(.caption).foregroundStyle(.secondary)
-                }
-                Spacer(minLength: 0)
-                Button(connected ? "断开连接" : "连接设备") {
-                    if connected { store.disconnect(device.id) } else { store.connect(device.id) }
-                }.disabled(store.paused).buttonStyle(WeftButtonStyle())
-            }.padding(.horizontal, 6)
-            HStack(alignment: .top, spacing: 30) {
-                VStack(spacing: 9) {
-                    Divider()
-                    setting("Mac 出入口屏幕") { ScreenSelectionView(store: store, device: device).frame(width: 180) }
-                    Divider()
-                    setting("鼠标速度") {
-                        SpeedPicker(selection: Binding(get: { device.speed }, set: { value in store.update(device.id) { $0.speed = value } }))
-                            .frame(width: 204)
-                    }
-                }.frame(maxWidth: .infinity)
-                VStack(spacing: 9) {
-                    Divider()
-                    setting("设备位置") {
-                        DirectionSelectionView(store: store, device: device).frame(width: 180)
-                    }
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top, spacing: 18) {
+                VStack(spacing: 10) {
+                    setting("Mac 出入口屏幕") { ScreenSelectionView(store: store, device: device).frame(width: 178) }
                     Divider()
                     PreferenceRow(title: "自动连接", subtitle: "设备可用时自动连接") {
                         Toggle("自动连接", isOn: Binding(get: { device.autoConnect }, set: { value in store.update(device.id) { $0.autoConnect = value } }))
-                            .labelsHidden().toggleStyle(.switch)
+                            .labelsHidden().toggleStyle(.switch).controlSize(.small)
                     }.frame(height: 38)
                 }.frame(maxWidth: .infinity)
-            }.padding(.horizontal, 6)
-            if !store.status(device.id).message.isEmpty {
-                Text(store.status(device.id).message).font(.caption).foregroundStyle(.orange).textSelection(.enabled)
-            }
-            Surface(highlighted: true) {
-                HStack(spacing: 14) {
-                    Image(systemName: "display.2").font(.system(size: 25))
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("自动跨屏").fontWeight(.semibold)
-                        Text("仅对\(device.name)生效；关闭后仍可通过菜单或快捷键进入")
-                            .font(.caption).foregroundStyle(.secondary)
+
+                Rectangle().fill(WeftStyle.border).frame(width: 1)
+
+                VStack(spacing: 10) {
+                    setting("鼠标速度") {
+                        SpeedPicker(selection: Binding(get: { device.speed }, set: { value in store.update(device.id) { $0.speed = value } }))
+                            .frame(width: 190)
                     }
-                    Spacer()
-                    Toggle("自动跨屏", isOn: Binding(get: { device.autoCross }, set: { value in
-                        store.update(device.id) { $0.autoCross = value }
-                    })).labelsHidden().toggleStyle(.switch)
-                }
+                    Divider()
+                    PreferenceRow(title: "自动跨屏", subtitle: "鼠标移至屏幕边缘时切换") {
+                        Toggle("自动跨屏", isOn: Binding(get: { device.autoCross }, set: { value in
+                            store.update(device.id) { $0.autoCross = value }
+                        }))
+                        .labelsHidden().toggleStyle(.switch).controlSize(.small)
+                        .accessibilityHint("关闭后仍可通过菜单或快捷键进入")
+                    }.frame(height: 38)
+                        .help("关闭后仍可通过菜单或快捷键进入")
+                }.frame(maxWidth: .infinity)
+            }.fixedSize(horizontal: false, vertical: true)
+
+            if !store.status(device.id).message.isEmpty {
+                Text(store.status(device.id).message).font(.caption).foregroundStyle(.orange)
+                    .fixedSize(horizontal: false, vertical: true).textSelection(.enabled)
             }
         }
+        .padding(.horizontal, 16).padding(.vertical, 12)
     }
 
     private func setting<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {

@@ -17,6 +17,8 @@ public final class BridgeAgent {
     private static final String END = "__WEFT_DUMP_END__";
 
     private ReusableMouse reusableMouse;
+    private final MouseButtonMapper buttonMapper = new MouseButtonMapper();
+    private volatile DeviceKeyActions keyActions;
     private volatile int mouseId = -1;
     private volatile boolean running = true;
     private volatile boolean active;
@@ -63,11 +65,11 @@ public final class BridgeAgent {
         ScreenMetrics metrics = ScreenMetrics.read();
         aligning = true;
         try {
-            reusableMouse = new ReusableMouse(input, this::sample);
+            reusableMouse = new ReusableMouse(input, this::sample, this::pointerActionFailed);
             reusableMouse.prepare(metrics.display);
             mouseId = reusableMouse.deviceId();
         } finally { aligning = false; }
-        emit("{\"type\":\"ready\",\"protocol\":3,\"pointerMode\":\"absolute\"," + metrics.fields() + ",\"reusable\":true}");
+        emit("{\"type\":\"ready\",\"protocol\":4,\"pointerMode\":\"absolute\"," + metrics.fields() + ",\"reusable\":true,\"buttonMapping\":true}");
         BufferedReader commands = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         String line;
         while (running && (line = commands.readLine()) != null) {
@@ -84,6 +86,12 @@ public final class BridgeAgent {
                     } finally { aligning = false; }
                 }
                 break;
+            case "map-buttons":
+                if (parts.length != 8 || !(parts[2].equals("0") || parts[2].equals("1")))
+                    throw new IllegalArgumentException("map-buttons arguments");
+                buttonMapper.configure(Long.parseLong(parts[1]), parts[2].equals("1"),
+                    java.util.Arrays.copyOfRange(parts, 3, 8));
+                break;
             case "enter-abs":
                 if (parts.length != 8 || Long.parseLong(parts[2]) != 0)
                     throw new IllegalArgumentException("enter-abs arguments");
@@ -92,19 +100,37 @@ public final class BridgeAgent {
                     Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), new int[] {
                         Integer.parseInt(parts[5]), Integer.parseInt(parts[6]), Integer.parseInt(parts[7])});
                 break;
+            case "pointer-action":
+                try {
+                    if (parts.length != 4) throw new IllegalArgumentException("pointer-action arguments");
+                    reusableMouse.performAction(Long.parseLong(parts[1]), Long.parseLong(parts[2]), parts[3]);
+                } catch (Exception error) {
+                    pointerActionFailed(controlEpoch, parts.length > 3 ? parts[3] : "unknown", error);
+                }
+                break;
             case "pointer":
                 if (parts.length != 8) throw new IllegalArgumentException("pointer arguments");
                 long inputEpoch = Long.parseLong(parts[1]);
                 if (active && inputEpoch == controlEpoch) {
-                    buttons = Integer.parseInt(parts[5]) & 31;
-                    reusableMouse.send(inputEpoch, Long.parseLong(parts[2]), Integer.parseInt(parts[3]),
+                    long inputSequence = Long.parseLong(parts[2]);
+                    MouseButtonMapper.Result mapped = buttonMapper.pointer(inputEpoch, inputSequence, Integer.parseInt(parts[5]));
+                    if (mapped == null) break;
+                    buttons = mapped.buttons;
+                    reusableMouse.send(inputEpoch, inputSequence, Integer.parseInt(parts[3]),
                         Integer.parseInt(parts[4]), buttons, Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
+                    for (int key : mapped.keys) {
+                        if (keyActions == null) keyActions = new DeviceKeyActions(input);
+                        keyActions.press(key);
+                        emit("{\"type\":\"mapped\",\"epoch\":" + inputEpoch + ",\"sequence\":" + inputSequence + ",\"keyCode\":" + key + "}");
+                    }
                 }
                 break;
             case "release":
                 if (parts.length > 2) throw new IllegalArgumentException("release arguments");
                 if (parts.length == 1 || Long.parseLong(parts[1]) == controlEpoch) {
                     active = false; buttons = 0;
+                    buttonMapper.release(controlEpoch);
+                    if (keyActions != null) keyActions.release();
                     reusableMouse.release();
                     emit("{\"type\":\"released\",\"epoch\":" + controlEpoch + "}");
                 }
@@ -127,6 +153,7 @@ public final class BridgeAgent {
         long started = SystemClock.elapsedRealtime();
         try {
             reusableMouse.enter(controlEpoch, x, y, display);
+            buttonMapper.enter(controlEpoch);
             mouseId = reusableMouse.deviceId(); active = true;
             emit("{\"type\":\"entered\",\"epoch\":" + controlEpoch + ",\"x\":" + x + ",\"y\":" + y
                 + ",\"width\":" + display[0] + ",\"height\":" + display[1] + ",\"rotation\":" + display[2]
@@ -199,6 +226,8 @@ public final class BridgeAgent {
 
     private synchronized void closeMouse() {
         active = false; mouseId = -1; buttons = 0;
+        buttonMapper.release(controlEpoch);
+        if (keyActions != null) keyActions.release();
         if (reusableMouse != null) reusableMouse.close();
     }
 
@@ -217,6 +246,11 @@ public final class BridgeAgent {
         Object info = type.getMethod("getDisplayInfo", int.class).invoke(manager, 0);
         if (info == null) throw new IllegalStateException("Display unavailable");
         return info;
+    }
+
+    private void pointerActionFailed(long epoch, String action, Exception error) {
+        emit("{\"type\":\"pointer-action-error\",\"epoch\":" + epoch + ",\"action\":\"" + escape(action)
+            + "\",\"detail\":\"" + escape(error.toString()) + "\"}");
     }
 
     private static synchronized void emit(String json) { System.out.println(json); System.out.flush(); }

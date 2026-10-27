@@ -3,6 +3,7 @@ import WeftCore
 
 struct LayoutCanvasView: View {
     @ObservedObject var store: DeviceStore
+    var boardHeight: CGFloat = 360
     @State private var drag: ScreenLayoutDrag?
     private var screen: MacScreen? { store.screens.first { $0.id == store.layoutDisplayID } }
     private var placements: [ScreenPlacement] { store.placements.filter { $0.displayID == store.layoutDisplayID } }
@@ -26,19 +27,22 @@ struct LayoutCanvasView: View {
             }
             if let screen {
                 GeometryReader { geo in board(screen: screen, size: geo.size) }
-                    .frame(height: 360)
+                    .frame(height: boardHeight)
                     .background(WeftStyle.canvas, in: RoundedRectangle(cornerRadius: 10))
             }
             ForEach(missingSizes) { device in
                 Label("\(device.name)：连接后读取屏幕尺寸", systemImage: "rectangle.dashed")
                     .font(.caption).foregroundStyle(.secondary)
             }
-            Label("拖动设备贴到 Mac 的任一边；绿色接壤线是双向跨屏通道。", systemImage: "info.circle")
-                .font(.caption).foregroundStyle(.secondary)
-            if screen?.estimatedSize == true || placements.contains(where: { $0.seam.remote.estimated }) {
-                Text("部分屏幕未提供物理尺寸，当前使用估算大小。")
-                    .font(.caption).foregroundStyle(.secondary)
-            }
+            HStack(spacing: 12) {
+                Label("拖动设备调整屏幕位置", systemImage: "info.circle")
+                    .help("拖动设备贴到 Mac 的任一边；绿色接壤线是双向跨屏通道。")
+                Spacer(minLength: 0)
+                if screen?.estimatedSize == true || placements.contains(where: { $0.seam.remote.estimated }) {
+                    Text("屏幕尺寸为估算值").font(.caption2)
+                        .help("部分屏幕未提供物理尺寸，当前使用估算大小。")
+                }
+            }.font(.caption).foregroundStyle(.secondary)
         }.padding(16)
             .background(WeftStyle.canvas, in: RoundedRectangle(cornerRadius: 13))
             .overlay(RoundedRectangle(cornerRadius: 13).stroke(WeftStyle.accent.opacity(0.20), lineWidth: 1))
